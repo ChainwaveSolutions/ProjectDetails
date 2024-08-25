@@ -46,6 +46,8 @@ To power the Chainwave ecosystem, we integrate a range of cutting-edge technolog
 ### Chainwave
 - **Server-Side Notary**: Provides a trusted environment for transaction verification.
 - **API (Bridging)**: Facilitates cross-chain asset transfers.
+
+Serverside Database including-
 - **Database of Users**: Securely manages user data.
 - **Database of Businesses**: Maintains business profiles and payment details.
 - **Database of Products**: A catalog of products available in the marketplace.
