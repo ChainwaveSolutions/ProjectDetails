@@ -47,13 +47,10 @@ contract TransferUSDCBasicFuji2Sepolia {
 
     //here for the other supported network identifiers  https://docs.chain.link/ccip/supported-networks/v1_2_0/testnet#avalanche-fuji
     address ccipRouterAddress = 0xF694E193200268f9a4868e4Aa017A0118C9a8177;
-
     // link token on source chain (mapping required to select and  spend on source chain  https://docs.chain.link/resources/link-token-contracts#fuji-testnet
     address linkAddress = 0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846;
-
     // https://developers.circle.com/stablecoins/docs/usdc-on-test-networks
     address usdcAddress = 0x5425890298aed601595a70AB815c96711a31Bc65;
-
     // https://docs.chain.link/ccip/supported-networks/v1_2_0/testnet#ethereum-sepolia
     uint64 destinationChainSelector = 16015286601757825753;
 
