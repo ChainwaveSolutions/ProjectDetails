@@ -21,7 +21,7 @@ Link tokens to be provided by team to use as payment system for bridging with cc
 * to be considered-  mapping chains or use seperate contracts for chains?? ill work on both till best option found
 * if using sigle contracts , the source chain and destination chains to be addressed as mappings and selectable on front end
 * Using CCIP system to transfer USDC tokens accross compatible Networks see list link below
-*
+* if interested to learn more or join the chainwave team please contact us at chainwavesolutions https://chainwave.tech 
 */
 import {IRouterClient} from "@chainlink/contracts-ccip/src/v0.8/ccip/interfaces/IRouterClient.sol";
 import {Client} from "@chainlink/contracts-ccip/src/v0.8/ccip/libraries/Client.sol";
