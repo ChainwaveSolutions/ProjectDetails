@@ -37,8 +37,8 @@ Chainwave Solutions Inc. is a forward-thinking company specializing in blockchai
 - **Reporting:** Prepare and present regular reports to senior management on the status of the company’s AML compliance program.
 
 ## Qualifications
-- Bachelor’s degree in finance, law, business administration, or a related field.
-- Minimum of [X] years of experience in AML compliance, preferably within the blockchain or financial services industry.
+- Prefered Bachelor’s degree in finance, law, business administration, or a related field.
+- Experience in AML compliance, preferably within the blockchain or financial services industry.
 - Certified Anti-Money Laundering Specialist (CAMS) or equivalent certification is highly desirable.
 - Strong understanding of AML laws and regulations, both domestic and international.
 - Excellent analytical, investigative, and problem-solving skills.
