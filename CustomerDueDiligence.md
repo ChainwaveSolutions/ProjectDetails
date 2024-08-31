@@ -73,7 +73,6 @@ For more information or to get started with our services, please contact our com
 
 ### Chainwave Solutions CDD Program - MongoDB Implementation
 
-## Introduction
 
 Chainwave Solutions has developed a robust Customer Due Diligence (CDD) program using MongoDB to ensure compliance with regulatory requirements and maintain the integrity of our business relationships. This document provides an overview of the MongoDB schema design and the functionality that supports our CDD processes.
 
