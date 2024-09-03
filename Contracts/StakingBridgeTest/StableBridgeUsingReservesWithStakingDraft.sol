@@ -11,7 +11,7 @@
 * test contract 1: 0x9A5De7C8faEacD606cE7F46422A6286C15a55F60
 *
 * router: 0xF694E193200268f9a4868e4Aa017A0118C9a8177
-* chain selector: 14767482510784806043 
+* chain selector: 14767482510784806043
 * official chainid: 43113
 * LINK Token on chain: 0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846
 * Native Currency: AVAX
@@ -24,7 +24,7 @@
 /*
 * Sepolia
 *
-* test contract 1: 0x46508bCbEa60573D66eAA7040eeFc5A074095c4e 
+* test contract 1: 0x46508bCbEa60573D66eAA7040eeFc5A074095c4e
 *
 * router: 0x0BF3dE8c5D3e8A2B34D2BEeB17ABfCeBaf363A59
 * chain selector: 16015286601757825753
@@ -47,7 +47,7 @@ import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.
 import {SafeMath} from "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import {EnumerableSet} from "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 
-contract BridgeWithIntegratedStaking is CCIPReceiver, OwnerIsCreator, ReentrancyGuard {
+contract ChainwaveUsdcCcipBridgeWithIntegratedStaking is CCIPReceiver, OwnerIsCreator, ReentrancyGuard {
     using SafeMath for uint256;
     using EnumerableSet for EnumerableSet.AddressSet;
 
