@@ -1,4 +1,41 @@
 // SPDX-License-Identifier: MIT
+
+/*
+* Treasury : 0xc690fE0d47803ed50E1EA7109a9750360117aa22
+* USDC Token: See chain deets below
+*/
+
+/*
+* Fuji
+*
+* test contract 1: 0x9A5De7C8faEacD606cE7F46422A6286C15a55F60
+*
+* router: 0xF694E193200268f9a4868e4Aa017A0118C9a8177
+* chain selector: 14767482510784806043 
+* official chainid: 43113
+* LINK Token on chain: 0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846
+* Native Currency: AVAX
+* USDC on chain: 0x5425890298aed601595a70AB815c96711a31Bc65
+* WETH Token: WAVAX
+* WETH Token on chain: 0xd00ae08403B9bbb9124bB305C09058E32C39A48c
+*/
+
+
+/*
+* Sepolia
+*
+* test contract 1: 0x46508bCbEa60573D66eAA7040eeFc5A074095c4e 
+*
+* router: 0x0BF3dE8c5D3e8A2B34D2BEeB17ABfCeBaf363A59
+* chain selector: 16015286601757825753
+* official chainid: 11155111
+* LINK Token on chain: 0x779877A7B0D9E8603169DdbD7836e478b4624789
+* Native Currency: ETH
+* USDC on chain: 0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238
+* WETH Token: WETH
+* WETH Token on chain: 0x097D90c9d3E0B50Ca60e1ae45F6A81010f9FB534
+*/
+
 pragma solidity ^0.8.19;
 
 import {IRouterClient} from "@chainlink/contracts-ccip/src/v0.8/ccip/interfaces/IRouterClient.sol";
