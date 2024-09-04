@@ -274,7 +274,8 @@ This project is licensed under the **MIT License**.
 
 ### References
 
-- [Chainwave Contract Test 3](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/Contracts/StakingBridgeTest/StakingBridge03.sol)
+- [Chainwave Solutions Anti-Money Laundering Policy](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/Chainwave%20Solutions%20Anti-Money%20Laundering%20(AML)%20Policy.md)
+- [Chainwave Contract Public Test](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/Contracts/StakingBridgeTest/StakingBridge03.sol)
 - [Chainlink CCIP Documentation](https://docs.chain.link/ccip)
 - [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts/4.x/)
 - [Chainlink Testnets Faucet](https://faucets.chain.link/)
