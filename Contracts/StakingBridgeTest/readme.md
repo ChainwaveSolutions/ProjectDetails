@@ -263,9 +263,14 @@ During deployment, the following parameters are required:
 - The health factor mechanism prevents over-staking or imbalances within the pool. It ensures that the total staked amount remains proportional to the developer stake.
 - When the health factor drops below a certain threshold, bridging may be delayed to prevent potential pool drain. Rebalancing the pools across chains takes up to 30 minutes during such rare occurrences, providing ecosystem stability.
 
+---
+## Regulations
 
+Chainwave Solutions ("the Company") is committed to preventing money laundering, terrorist financing, and other illegal activities by properly identifying, managing, and reporting suspicious activities. This Anti-Money Laundering (AML) Policy outlines our commitment to comply with all applicable laws, regulations, and guidelines to combat money laundering and terrorist financing.
 
-   ---
+Read more in our policy here.
+- [Chainwave Solutions Anti-Money Laundering Policy](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/Chainwave%20Solutions%20Anti-Money%20Laundering%20(AML)%20Policy.md)
+---
 
 ## License
 This project is licensed under the **MIT License**.
