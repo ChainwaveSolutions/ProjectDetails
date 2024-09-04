@@ -41,7 +41,7 @@ Regular risk assessments will be conducted to identify and mitigate potential AM
 - The geographical locations in which the Company operates.
 - The types of customers and transactions involved.
 - The potential for money laundering or terrorist financing within the Company’s operations.
-[Chainwave Solutions AML Risk Assessment](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/CustomerDueDiligence.md#code-systems-for-kyc-kyb)
+[Chainwave Solutions AML Risk Assessment](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/AML%20Risk%20Assessment.md)
 
 ## Transaction Monitoring
 The Company will implement transaction monitoring procedures to detect and report suspicious activities, including:
@@ -70,6 +70,9 @@ The Company will comply with all applicable sanctions programs, including those 
 
 ## Reporting Violations
 Employees who become aware of a violation of this policy must report it immediately to the AML Compliance Officer. The Company prohibits retaliation against any employee who reports a violation in good faith.
+
+[Chainwave Solutions Suspicious Activity Report Template ](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/SarsFiling.md#suspicious-activity-report-sar-template)
+
 
 ## Review and Revision of Policy
 This AML policy will be reviewed and updated regularly to ensure its effectiveness and compliance with current laws and regulations. The AML Compliance Officer is responsible for overseeing the review process.
