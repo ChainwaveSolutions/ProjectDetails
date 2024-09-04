@@ -41,6 +41,8 @@ Regular risk assessments will be conducted to identify and mitigate potential AM
 - The geographical locations in which the Company operates.
 - The types of customers and transactions involved.
 - The potential for money laundering or terrorist financing within the Company’s operations.
+
+  
 [Chainwave Solutions AML Risk Assessment](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/AML%20Risk%20Assessment.md)
 
 ## Transaction Monitoring
@@ -67,6 +69,10 @@ Chainwave Solutions will establish and maintain internal controls to ensure comp
 
 ## Compliance with Sanctions
 The Company will comply with all applicable sanctions programs, including those administered by the Office of Foreign Assets Control (OFAC) and other relevant authorities. The Company will screen customers and transactions against applicable sanctions lists and take appropriate action if a match is identified.
+
+
+[The Office of Foreign Assets Control OFAC](https://ofac.treasury.gov/sanctions-list-service)
+
 
 ## Reporting Violations
 Employees who become aware of a violation of this policy must report it immediately to the AML Compliance Officer. The Company prohibits retaliation against any employee who reports a violation in good faith.
