@@ -53,7 +53,7 @@ The Company will implement transaction monitoring procedures to detect and repor
 ## Suspicious Activity Reporting (SAR)
 The Company is required to report any suspicious activities to the relevant authorities. Employees must immediately notify the AML Compliance Officer if they detect or suspect any suspicious activity. The AML Compliance Officer will determine if a Suspicious Activity Report (SAR) should be filed.
 
-- [Chainwave Solutions SAR Documentation](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/SarsFiling.md)
+[Chainwave Solutions SAR Documentation](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/SarsFiling.md)
 
 ## Record-Keeping
 The Company will maintain records of all customer information, transaction details, and reports of suspicious activities for at least five years. These records will be securely stored and accessible to the relevant authorities upon request.
