@@ -70,7 +70,7 @@
 /*
 * BSC Testnet               ***Only fuji sepolia amoy base networks to chain bsc with***
 *
-* test contract 1:    0x4B7f78b2AF5fbA9a388c2ec8f65f44AAE67D7f0b
+* test contract 1:
 *
 * router: 0xE1053aE1857476f36A3C62580FF9b016E8EE8F6f
 * chain selector: 13264668187771770619
@@ -98,8 +98,6 @@
 * WETH Token on chain: 0x360ad4f9a9A8EFe9A8DCB5f461c4Cc1047E1Dcf9
 */
 
-
-
 pragma solidity ^0.8.19;
 
 import {IRouterClient} from "@chainlink/contracts-ccip/src/v0.8/ccip/interfaces/IRouterClient.sol";
@@ -122,6 +120,9 @@ contract ChainWaveBridgeWithStakingTEST is CCIPReceiver, OwnerIsCreator, Reentra
     // Stablecoin token interface (e.g., USDC)
     IERC20 private immutable token;
 
+    // Operator address for managing projects funds across chains
+    address public operator;
+
     // Allowlisted chains and destination contracts
     mapping(uint64 => bool) public allowlistedChains;
     mapping(address => bool) public allowlistedContracts;
@@ -136,12 +137,13 @@ contract ChainWaveBridgeWithStakingTEST is CCIPReceiver, OwnerIsCreator, Reentra
 
     // Staking variables
     uint256 public totalStaked;
-    uint256 public developerStake;
+    uint256 public projectsStake;
     mapping(address => uint256) public stakedBalances;
     mapping(address => uint256) public rewards;
     EnumerableSet.AddressSet private stakers;
 
     // Events
+    event OperatorUpdated(address indexed newOperator);
     event TokensLockedAndSent(
         address indexed sender,
         uint256 amount,
@@ -155,8 +157,8 @@ contract ChainWaveBridgeWithStakingTEST is CCIPReceiver, OwnerIsCreator, Reentra
     event RewardsClaimed(address indexed user, uint256 amount);
     event FeesUpdated(uint256 bridgeFeePercentage, uint256 stakingFeePercentage);
     event TreasuryUpdated(address indexed newTreasury);
-    event OwnerFundsDeposited(uint256 amount);
-    event OwnerFundsWithdrawn(uint256 amount, address to);
+    event PojectsFundsDeposited(uint256 amount);
+    event PojectsFundsWithdrawn(uint256 amount, address to);
     event HealthFactorUpdated(uint256 healthFactor);
     event ContractAllowlisted(address indexed contractAddress, bool allowed);
     event ChainAllowlisted(uint64 indexed chainSelector, bool allowed);
@@ -185,6 +187,14 @@ contract ChainWaveBridgeWithStakingTEST is CCIPReceiver, OwnerIsCreator, Reentra
     }
 
     /**
+     * @dev Modifier to allow only the operator or projects to execute certain functions.
+     */
+    modifier onlyOperatorOrOwner() {
+        require(msg.sender == operator || msg.sender == owner(), "Caller is not operator or owner");
+        _;
+    }
+
+    /**
      * @dev Modifier to allow only allowlisted chains.
      */
     modifier onlyAllowlistedChain(uint64 chainSelector) {
@@ -210,73 +220,43 @@ contract ChainWaveBridgeWithStakingTEST is CCIPReceiver, OwnerIsCreator, Reentra
     }
 
     /**
-     * @dev Allows the owner to add or remove allowlisted chains.
-     * @param chainSelector The selector of the chain.
-     * @param allowed Boolean indicating if the chain is allowed.
+     * @dev Allows the owner to set the operator.
+     * @param _operator The new operator address.
      */
-    function allowlistChain(uint64 chainSelector, bool allowed) external onlyOwner {
-        allowlistedChains[chainSelector] = allowed;
-        emit ChainAllowlisted(chainSelector, allowed);
+    function setOperator(address _operator) external onlyOwner {
+        require(_operator != address(0), "Invalid operator address");
+        operator = _operator;
+        emit OperatorUpdated(_operator);
     }
 
     /**
-     * @dev Allows the owner to add or remove allowlisted destination contracts.
-     * @param contractAddress The address of the destination contract.
-     * @param allowed Boolean indicating if the contract is allowed.
-     */
-    function allowlistContract(address contractAddress, bool allowed) external onlyOwner {
-        allowlistedContracts[contractAddress] = allowed;
-        emit ContractAllowlisted(contractAddress, allowed);
-    }
-
-    /**
-     * @dev Updates the treasury address.
-     * @param _treasury The new treasury address.
-     */
-    function updateTreasury(address _treasury) external onlyOwner {
-        require(_treasury != address(0), "Invalid treasury address");
-        treasury = _treasury;
-        emit TreasuryUpdated(_treasury);
-    }
-
-    /**
-     * @dev Updates the bridge and staking fee percentages.
-     * @param _bridgeFeePercentage Bridge fee in basis points.
-     * @param _stakingFeePercentage Staking fee in basis points.
-     */
-    function updateFees(uint256 _bridgeFeePercentage, uint256 _stakingFeePercentage) external onlyOwner {
-        require(_bridgeFeePercentage + _stakingFeePercentage <= BASIS_POINTS, "Total fees exceed 100%");
-        bridgeFeePercentage = _bridgeFeePercentage;
-        stakingFeePercentage = _stakingFeePercentage;
-        emit FeesUpdated(_bridgeFeePercentage, _stakingFeePercentage);
-    }
-
-    /**
-     * @dev Allows the owner to deposit additional funds into the contract.
+     * @dev Allows the owner or operator to deposit additional funds into the contract.
      * @param amount The amount of tokens to deposit.
      */
-    function ownerDepositFunds(uint256 amount) external onlyOwner {
+    function projectsDepositFunds(uint256 amount) external onlyOperatorOrOwner {
         require(amount > 0, "Cannot deposit zero tokens");
         require(token.transferFrom(msg.sender, address(this), amount), "Token transfer failed");
 
-        developerStake = developerStake.add(amount);
-        emit OwnerFundsDeposited(amount);
+        projectsStake = projectsStake.add(amount);
+        emit PojectsFundsDeposited(amount);
     }
 
     /**
-     * @dev Allows the owner to withdraw funds from the contract.
+     * @dev Allows the owner or operator to withdraw funds from the contract.
      * @param amount The amount of tokens to withdraw.
      * @param to The address to receive the withdrawn tokens.
      */
-    function ownerWithdrawFunds(uint256 amount, address to) external onlyOwner ensureHealthyPool {
+    function projectsWithdrawFunds(uint256 amount, address to) external onlyOperatorOrOwner ensureHealthyPool {
         require(amount > 0, "Cannot withdraw zero tokens");
         require(to != address(0), "Invalid recipient address");
 
         require(token.transfer(to, amount), "Token transfer failed");
 
-        developerStake = developerStake.sub(amount);
-        emit OwnerFundsWithdrawn(amount, to);
+        projectsStake = projectsStake.sub(amount);
+        emit PojectsFundsWithdrawn(amount, to);
     }
+
+
 
     /**
      * @dev Locks tokens and sends them to the destination chain.
@@ -310,7 +290,7 @@ contract ChainWaveBridgeWithStakingTEST is CCIPReceiver, OwnerIsCreator, Reentra
         require(token.transfer(treasury, bridgeFee), "Bridge fee transfer failed");
 
         // Add the locked tokens to the developer stake
-        developerStake = developerStake.add(amountAfterFee);
+        projectsStake = projectsStake.add(amountAfterFee);
 
         // Building the cross-chain message to unlock on the destination chain and send to the original sender
         Client.EVM2AnyMessage memory evm2AnyMessage = Client.EVM2AnyMessage({
@@ -436,7 +416,7 @@ contract ChainWaveBridgeWithStakingTEST is CCIPReceiver, OwnerIsCreator, Reentra
         if (totalStaked == 0) {
             return type(uint256).max; // If no user stakes, the health factor is infinite.
         }
-        healthFactor = (developerStake.mul(BASIS_POINTS)).div(totalStaked);
+        healthFactor = (projectsStake.mul(BASIS_POINTS)).div(totalStaked);
         // emit HealthFactorUpdated(healthFactor); // Removed because view functions can't emit events
         return healthFactor;
     }
@@ -454,7 +434,7 @@ contract ChainWaveBridgeWithStakingTEST is CCIPReceiver, OwnerIsCreator, Reentra
      * @return combinedValue The combined value of staked balances and developer stakes.
      */
     function getCombinedStakedValue() external view returns (uint256 combinedValue) {
-        return totalStaked.add(developerStake);
+        return totalStaked.add(projectsStake);
     }
 
     /**
