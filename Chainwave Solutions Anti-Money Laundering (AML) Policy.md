@@ -20,12 +20,20 @@ The Company shall appoint an AML Compliance Officer responsible for:
 - Reporting suspicious activity to the appropriate authorities.
 - Maintaining records of all AML activities and reports.
 
+[Chainwave Solutions AML Compliance Officer Position and Role Details](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/AML%20Comliance%20Officer.md)
+
 ## Customer Due Diligence (CDD)
 Chainwave Solutions will implement a Customer Due Diligence (CDD) program to verify the identity of each customer before establishing a business relationship. This process includes:
 - Collecting and verifying customer identification information.
 - Identifying and verifying the beneficial owners of the account.
 - Understanding the customer’s business and the purpose of the account.
 - Ongoing monitoring of customer transactions for unusual or suspicious activity.
+
+
+[Chainwave Solutions CDD Documentation](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/CustomerDueDiligence.md)
+
+
+
 
 ## Risk Assessment
 Regular risk assessments will be conducted to identify and mitigate potential AML risks. The assessments will consider:
@@ -40,8 +48,12 @@ The Company will implement transaction monitoring procedures to detect and repor
 - Analyzing transactions for patterns indicative of money laundering or terrorist financing.
 - Investigating and documenting any suspicious activity.
 
+[Chainwave Solutions Monitoring Systems](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/CustomerDueDiligence.md#code-systems-for-kyc-kyb)
+
 ## Suspicious Activity Reporting (SAR)
 The Company is required to report any suspicious activities to the relevant authorities. Employees must immediately notify the AML Compliance Officer if they detect or suspect any suspicious activity. The AML Compliance Officer will determine if a Suspicious Activity Report (SAR) should be filed.
+
+- [Chainwave Solutions SAR Documentation](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/SarsFiling.md)
 
 ## Record-Keeping
 The Company will maintain records of all customer information, transaction details, and reports of suspicious activities for at least five years. These records will be securely stored and accessible to the relevant authorities upon request.
