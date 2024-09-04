@@ -7,6 +7,7 @@ ChainWave's Stable Bridging System is a cross-chain token bridging smart contrac
 This contract is deployed across multiple testnets, including **Fuji**, **Sepolia**, **Base Testnet**, and **BSC Testnet**. It ensures seamless token bridging and staking across different networks while maintaining a stable 1:1 ratio with USDC.
 
 ---
+![Stable CCIP Bridge 02](https://raw.githubusercontent.com/ChainwaveSolutions/ProjectDetails/main/Contracts/StakingBridgeTest/bridgesystemccip.png)
 
 ## Features
 
