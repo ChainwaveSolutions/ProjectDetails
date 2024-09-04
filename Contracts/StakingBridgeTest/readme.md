@@ -130,28 +130,45 @@ By integrating the **Health Factor** into the contract’s logic, **ChainWave's 
 - Rewards are distributed proportionally among stakers based on their contribution to the total staked USDC.
 - The **staking fee** is distributed as rewards to the users, while the **bridge fee** is transferred to the treasury.
 
-### **4. Allowlisting Contracts and Chains**
-- The contract includes functions for allowlisting destination contracts and chains. These functions can only be invoked by the **owner** or **operator**:
-   - `allowlistChain()`: Allows a specific chain by its selector.
-   - `allowlistContract()`: Allows a specific contract address on the destination chain.
-
 ---
 
-## Contract Functions
 
-### **Public User Functions**
-1. **lockAndSend(uint256 amount, uint64 destinationChainSelector, address destinationContract)**:
-   - Locks USDC on the source chain and sends a cross-chain message to unlock USDC on the destination chain.
-   - Requires the destination chain and contract to be allowlisted.
 
-2. **stakeTokens(uint256 amount)**:
-   - Allows users to stake USDC into the contract and start earning rewards.
+## Usage
 
-3. **unstakeTokens(uint256 amount)**:
-   - Unstakes the user's USDC, subject to the health factor of the pool.
+### Using the Contract
 
-4. **claimRewards()**:
-   - Claims accumulated staking rewards in USDC.
+1. **Lock USDC and Unlock on Destination Chain**:
+   - Call `lockAndSend(amount, destinationChainSelector, destinationContract)` to lock USDC on the source chain and send an equivalent amount to the destination chain.
+   - Ensure that the `destinationChainSelector` and `destinationContract` are allowlisted.
+
+2. **Stake USDC**:
+   - Call `stakeTokens(amount)` to stake USDC and participate in rewards.
+
+3. **Unstake and Claim Rewards**:
+   - Call `unstakeTokens(amount)` to unstake USDC.
+   - Call `claimRewards()` to claim accumulated rewards.
+
+### User Functions
+
+   ### **Public User Functions**
+   1. **lockAndSend(uint256 amount, uint64 destinationChainSelector, address destinationContract)**:
+      - Locks USDC on the source chain and sends a cross-chain message to unlock USDC on the destination chain.
+      - Requires the destination chain and contract to be allowlisted.
+
+   2. **stakeTokens(uint256 amount)**:
+      - Allows users to stake USDC into the contract and start earning rewards.
+
+   3. **unstakeTokens(uint256 amount)**:
+      - Unstakes the user's USDC, subject to the health factor of the pool.
+
+   4. **claimRewards()**:
+      - Claims accumulated staking rewards in USDC.
+
+   ---
+---
+
+## Developer Steps for Owner to Setup the Bridging System
 
 ### **Owner/Operator Functions**
 1. **setOperator(address newOperator)**:
@@ -172,37 +189,85 @@ By integrating the **Health Factor** into the contract’s logic, **ChainWave's 
 6. **updateFees(uint256 bridgeFeePercentage, uint256 stakingFeePercentage)**:
    - Updates the bridge and staking fees for transactions.
 
----
+To ensure proper functioning of the bridge, the owner (or operator) needs to follow the steps below:
 
-## Usage
+### Step 1: Deploy the Contract
 
-### Deploying the Contract
+- Deploy the contract on the desired blockchain network by providing the required parameters (router, token, linkToken, and treasury).
 
-- The contract can be deployed to supported chains like Fuji, Sepolia, Base Testnet, and BSC Testnet.
-- During deployment, the following parameters are required:
-  - **router**: Address of the Chainlink CCIP router contract.
-  - **token**: Address of the USDC token on the chain.
-  - **linkToken**: Address of the LINK token on the chain.
-  - **treasury**: Address to receive the treasury fees.
+During deployment, the following parameters are required:
+- **router**: Address of the Chainlink CCIP router contract.
+- **token**: Address of the USDC token on the chain.
+- **linkToken**: Address of the LINK token on the chain.
+- **treasury**: Address to receive the treasury fees.
 
-### Using the Contract
+### Step 2: Fund the Contract with LINK
 
-1. **Lock USDC and Unlock on Destination Chain**:
-   - Call `lockAndSend(amount, destinationChainSelector, destinationContract)` to lock USDC on the source chain and send an equivalent amount to the destination chain.
-   - Ensure that the `destinationChainSelector` and `destinationContract` are allowlisted.
+- Deposit LINK into the contract using the `depositLink(amount)` function to ensure the contract has enough funds to pay for CCIP operations.
 
-2. **Stake USDC**:
-   - Call `stakeTokens(amount)` to stake USDC and participate in rewards.
+1. **Deposit LINK tokens**:
+   - Call `depositLink(amount)` from the owner account to deposit LINK into the contract. This will fund CCIP operations.
 
-3. **Unstake and Claim Rewards**:
-   - Call `unstakeTokens(amount)` to unstake USDC.
-   - Call `claimRewards()` to claim accumulated rewards.
+   Example:
+   ```solidity
+   contract.depositLink(1000 * 10**18); // Deposits 1000 LINK tokens
+   ```
 
-### Allowlisting Chains and Contracts
-- Call `allowlistChain(chainSelector, allowed)` to manage allowed chains.
-- Call `allowlistContract(contractAddress, allowed)` to manage allowed destination contracts.
+2. **Check LINK Balance**:
+   - Call `getLinkBalance()` to view the total LINK balance available for the contract's CCIP fees.
 
----
+
+### Step 3: Allowlist Chains and Contracts
+
+1. **Allowlist a Chain**:
+   - Call `allowlistChain(chainSelector, allowed)` to manage allowed chains.
+   - `chainSelector` is the unique identifier for the chain (provided by Chainlink CCIP), and `allowed` is a boolean (`true` to allow, `false` to deny).
+
+   Example:
+   ```solidity
+   contract.allowlistChain(14767482510784806043, true); // Allow Fuji chain
+   ```
+
+2. **Allowlist a Destination Contract**:
+   - Call `allowlistContract(contractAddress, allowed)` to manage allowed destination contracts.
+   - `contractAddress` is the address of the contract that will receive the unlocked tokens on the destination chain.
+
+   Example:
+   ```solidity
+   contract.allowlistContract(0x22efE8B04612ED6B06Eb868323B71d4Bf45e6B1C, true); // Allow destination contract
+   ```
+
+3. **Check if Chain or Contract is Allowlisted**:
+   - Call `isChainAllowlisted(chainSelector)` to check if a chain is allowed.
+   - Call `isContractAllowlisted(contractAddress)` to check if a destination contract is allowed.
+
+### Step 4: Configure Fees
+
+- Set the bridge and staking fees according to the project’s business model by calling `updateFees(bridgeFeePercentage, stakingFeePercentage)`. This ensures that the fees deducted during token bridging and staking are configured properly.
+
+### Step 5: Manage Operator Access
+
+- If needed, assign an operator who will manage the day-to-day operations, like managing project funds and interactions across chains. Use `setOperator(operatorAddress)` to set the operator.
+
+### Step 6: Monitor Health Factor
+
+- Use the `calculateHealthFactor()` function to monitor the health of the staking pool. The health factor ensures that the staking pool remains balanced, preventing excessive withdrawals or imbalances across chains.
+- If the health factor falls below the threshold, bridging operations may be delayed until balance is restored. The system is designed to automatically rebalance over 30 minutes.
+
+## Security Considerations
+
+### Allowlist Mechanism for Enhanced Security
+
+- **Chain Security**: Only allowlisted chains can interact with the bridge, ensuring that token transfers are confined to trusted chains. This prevents malicious or unknown chains from accessing the contract.
+- **Contract Security**: Only allowlisted destination contracts can receive tokens from the bridge. This guarantees that tokens are unlocked only in approved contracts on the destination chain.
+- These allowlists are managed by the contract owner or operator, adding a layer of control over cross-chain transactions.
+
+### Health Factor to Safeguard Staking Pool
+
+- The health factor mechanism prevents over-staking or imbalances within the pool. It ensures that the total staked amount remains proportional to the developer stake.
+- When the health factor drops below a certain threshold, bridging may be delayed to prevent potential pool drain. Rebalancing the pools across chains takes up to 30 minutes during such rare occurrences, providing ecosystem stability.
+
+
 
 ## Testing
 
