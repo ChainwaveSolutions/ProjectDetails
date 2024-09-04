@@ -41,6 +41,7 @@ Regular risk assessments will be conducted to identify and mitigate potential AM
 - The geographical locations in which the Company operates.
 - The types of customers and transactions involved.
 - The potential for money laundering or terrorist financing within the Company’s operations.
+[Chainwave Solutions AML Risk Assessment](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/CustomerDueDiligence.md#code-systems-for-kyc-kyb)
 
 ## Transaction Monitoring
 The Company will implement transaction monitoring procedures to detect and report suspicious activities, including:
