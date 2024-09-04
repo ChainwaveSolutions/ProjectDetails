@@ -20,7 +20,7 @@ The Company shall appoint an AML Compliance Officer responsible for:
 - Reporting suspicious activity to the appropriate authorities.
 - Maintaining records of all AML activities and reports.
 
-[Chainwave Solutions AML Compliance Officer Position and Role Details](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/AML%20Comliance%20Officer.md)
+[Chainwave Solutions AML Compliance Officer Position and Role](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/AML%20Comliance%20Officer.md)
 
 ## Customer Due Diligence (CDD)
 Chainwave Solutions will implement a Customer Due Diligence (CDD) program to verify the identity of each customer before establishing a business relationship. This process includes:
@@ -79,6 +79,6 @@ Chainwave Solutions is dedicated to maintaining the highest standards of complia
 ---
 
 **Approval and Adoption**
-This AML Policy has been approved by the Board of Directors of Chainwave Solutions and is effective as of [Effective Date]. All employees, officers, directors, contractors, and third-party agents must comply with the terms of this policy.
+This AML Policy has been approved by the Board of Directors of Chainwave Solutions and is effective as of August 24 2024. All employees, officers, directors, contractors, and third-party agents must comply with the terms of this policy.
 
 ---
