@@ -149,7 +149,6 @@ By integrating the **Health Factor** into the contract’s logic, **ChainWave's 
    - Call `unstakeTokens(amount)` to unstake USDC.
    - Call `claimRewards()` to claim accumulated rewards.
 
-### User Functions
 
    ### **Public User Functions**
    1. **lockAndSend(uint256 amount, uint64 destinationChainSelector, address destinationContract)**:
@@ -254,6 +253,7 @@ During deployment, the following parameters are required:
 - Use the `calculateHealthFactor()` function to monitor the health of the staking pool. The health factor ensures that the staking pool remains balanced, preventing excessive withdrawals or imbalances across chains.
 - If the health factor falls below the threshold, bridging operations may be delayed until balance is restored. The system is designed to automatically rebalance over 30 minutes.
 
+   ---
 ## Security Considerations
 
 ### Allowlist Mechanism for Enhanced Security
@@ -269,16 +269,7 @@ During deployment, the following parameters are required:
 
 
 
-## Testing
-
-The contract is deployed on several testnets, and you can use the following test tokens:
-
-- **Fuji**: Test with USDC at address `0x5425890298aed601595a70AB815c96711a31Bc65`.
-- **Sepolia**: Test with USDC at address `0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238`.
-- **Base Testnet**: Test with USDC at address `0x036CbD53842c5426634e7929541eC2318f3dCF7e`.
-- **BSC Testnet**: Custom test token created at `0x36e50b8c7be83546e11567e0D5871a99c7c554e0`.
-
----
+   ---
 
 ## License
 This project is licensed under the **MIT License**.
@@ -287,8 +278,9 @@ This project is licensed under the **MIT License**.
 
 ### References
 
+- [Chainwave Contract Test 3](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/Contracts/StakingBridgeTest/StakingBridge03.sol)
 - [Chainlink CCIP Documentation](https://docs.chain.link/ccip)
 - [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts/4.x/)
 - [Chainlink Testnets Faucet](https://faucets.chain.link/)
 
----
+---https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/Contracts/StakingBridgeTest/StakingBridge03.sol
