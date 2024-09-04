@@ -1,0 +1,46 @@
+function lockAndSend(
+    uint256 amount,
+    uint64 destinationChainSelector,
+    address destinationContract
+) external nonReentrant onlyAllowlistedChain(destinationChainSelector) ensureHealthyPool {
+    require(amount > 0, "Amount must be greater than zero");
+    require(destinationContract != address(0), "Invalid destination contract address");
+
+    // Calculate fees
+    uint256 bridgeFee = (amount * bridgeFeePercentage) / BASIS_POINTS;
+    uint256 stakingFee = (amount * stakingFeePercentage) / BASIS_POINTS;
+    uint256 totalFee = bridgeFee + stakingFee;
+    uint256 amountAfterFee = amount - totalFee;
+
+    // Transfer the total fee to the contract
+    require(token.transferFrom(msg.sender, address(this), totalFee), "Fee transfer failed");
+    // Transfer the remaining amount to be locked
+    require(token.transferFrom(msg.sender, address(this), amountAfterFee), "Amount transfer failed");
+
+    // Distribute staking fee
+    _distributeStakingFee(stakingFee);
+
+    // Transfer bridge fee to the treasury
+    require(token.transfer(treasury, bridgeFee), "Bridge fee transfer failed");
+
+    // Add the locked tokens to the developer stake
+    developerStake = developerStake.add(amountAfterFee);
+
+    // Building the cross-chain message to unlock on the destination chain and send to the original sender
+    Client.EVM2AnyMessage memory evm2AnyMessage = Client.EVM2AnyMessage({
+        receiver: abi.encode(destinationContract),
+        data: abi.encode(amountAfterFee, msg.sender),
+        tokenAmounts: new Client.EVMTokenAmount , // Initialize an empty array of EVMTokenAmount
+        extraArgs: Client._argsToBytes(Client.EVMExtraArgsV1({gasLimit: 200_000})),
+        feeToken: address(s_linkToken)
+    });
+
+    uint256 linkFees = router.getFee(destinationChainSelector, evm2AnyMessage);
+
+    require(s_linkToken.balanceOf(address(this)) >= linkFees, "Insufficient LINK for fees");
+    require(s_linkToken.approve(address(router), linkFees), "LINK approval failed");
+
+    bytes32 messageId = router.ccipSend(destinationChainSelector, evm2AnyMessage);
+
+    emit TokensLockedAndSent(msg.sender, amountAfterFee, destinationChainSelector, messageId, totalFee);
+}
