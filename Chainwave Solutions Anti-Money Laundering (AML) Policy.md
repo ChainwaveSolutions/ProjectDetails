@@ -1,5 +1,4 @@
-# Chainwave Solutions Anti-Money Laundering (AML) Policy (For Final Approval)
-
+# Chainwave Solutions Anti-Money Laundering (AML) Policy.
 ## Introduction
 Chainwave Solutions ("the Company") is committed to preventing money laundering, terrorist financing, and other illegal activities by properly identifying, managing, and reporting suspicious activities. This Anti-Money Laundering (AML) Policy outlines our commitment to comply with all applicable laws, regulations, and guidelines to combat money laundering and terrorist financing.
 
