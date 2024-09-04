@@ -33,10 +33,6 @@ This contract is deployed across multiple testnets, including **Fuji**, **Sepoli
 
 ---
 
-Here's an updated section for the `README.md` file, covering the **Health Factor** and its role in limiting pools, interactions with staking, and ecosystem balancing:
-
----
-
 ## Health Factor: Pool Management and Ecosystem Balancing
 
 ### **Overview**
