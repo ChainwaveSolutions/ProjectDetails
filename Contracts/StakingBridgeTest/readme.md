@@ -1,8 +1,8 @@
-# ChainWaveBridgeWithStaking (USDC Stablecoin Version)
+# ChainWave's Stable Bridging System (USDC Stablecoin Version)
 
 ## Overview
 
-ChainWaveBridgeWithStaking is a cross-chain token bridging smart contract integrated with staking functionality, specifically using **USDC Stablecoin** as the token. It enables users to lock their USDC tokens on a source chain and unlock equivalent tokens on a destination chain. The system also incorporates staking rewards for users, developer stake management, and secure cross-chain messaging powered by Chainlink's **Cross-Chain Interoperability Protocol (CCIP)**.
+ChainWave's Stable Bridging System is a cross-chain token bridging smart contract integrated with staking functionality, specifically using **USDC Stablecoin** as the token. It enables users to lock their USDC tokens on a source chain and unlock equivalent tokens on a destination chain. The system also incorporates staking rewards for users, developer stake management, and secure cross-chain messaging powered by Chainlink's **Cross-Chain Interoperability Protocol (CCIP)**.
 
 This contract is deployed across multiple testnets, including **Fuji**, **Sepolia**, **Base Testnet**, and **BSC Testnet**. It ensures seamless token bridging and staking across different networks while maintaining a stable 1:1 ratio with USDC.
 
@@ -31,6 +31,79 @@ This contract is deployed across multiple testnets, including **Fuji**, **Sepoli
 - The **owner** or **operator** can update the allowlist of contracts and chains.
 
 ---
+
+Here's an updated section for the `README.md` file, covering the **Health Factor** and its role in limiting pools, interactions with staking, and ecosystem balancing:
+
+---
+
+## Health Factor: Pool Management and Ecosystem Balancing
+
+### **Overview**
+
+The **Health Factor** is a critical component in the **ChainWave's Stable Bridging System** contract that manages the balance and sustainability of the staking pool and cross-chain liquidity. It acts as a safeguard to ensure that the system's liquidity remains healthy and stable, especially when handling large amounts of staked USDC across multiple chains.
+
+The Health Factor determines when the ecosystem pool requires balancing between chains and restricts certain interactions, such as staking, unstaking, and cross-chain token transfers, if the pool is unhealthy.
+
+### **How Health Factor Works**
+
+The Health Factor is calculated based on the ratio of the **project’s stake** (developer's liquidity) to the **total user stakes** in the contract. The goal is to ensure that the contract holds enough liquidity to cover all staking and cross-chain transfer obligations, minimizing the risk of insolvency or imbalance between chains.
+
+#### **Health Factor Formula**
+
+```solidity
+healthFactor = (projectsStake * BASIS_POINTS) / totalStaked;
+```
+
+- **projectsStake**: The amount of tokens held by the contract for liquidity and ecosystem management.
+- **totalStaked**: The total amount of tokens staked by all users in the contract.
+- **BASIS_POINTS**: A constant value used to represent percentage calculations in basis points.
+
+#### **Key Considerations**
+
+- A **Health Factor** of **100% or greater** indicates a healthy pool, meaning there is sufficient liquidity in the ecosystem to support user stakes and transfers.
+- If the Health Factor falls below 100%, the system restricts certain operations (such as withdrawals and cross-chain transfers) to prevent further imbalance and allows time for the pool to recover.
+
+### **Role of the Health Factor in Pool Operations**
+
+#### **1. Restricting User Interactions**
+- If the **Health Factor** drops below a certain threshold (100%), the contract restricts user interactions such as **unstaking**, **withdrawing funds**, and **initiating cross-chain transfers**.
+- This restriction prevents further depletion of the pool and allows the system to stabilize.
+
+#### **2. Pool Balancing Across Chains**
+- In the rare case where there is an imbalance in the ecosystem across multiple chains, the Health Factor triggers a pool balancing mechanism. This balancing ensures that enough liquidity is maintained to cover obligations on all supported chains.
+- Balancing occurs automatically and typically takes up to **30 minutes** to complete. During this time, there may be delays in bridging and transfer operations as the system ensures all chains remain balanced.
+
+#### **3. Impact on Staking and Unstaking**
+- Users are still able to **stake tokens** when the pool is unhealthy, but they cannot unstake or claim rewards until the pool is back to a healthy state.
+- Staking rewards continue to accumulate during this period, but users will only be able to claim them once the **Health Factor** reaches a safe level again.
+
+### **How the Health Factor Limits Ecosystem Interactions**
+
+The **Health Factor** directly influences the following operations:
+- **Staking**: Users can continue to stake even when the pool is unhealthy, but their interactions are subject to the pool's ability to recover.
+- **Unstaking**: Users cannot unstake tokens if the Health Factor is below 100%, preventing further depletion of liquidity in the pool.
+- **Cross-Chain Transfers**: Cross-chain transfers are restricted until the pool is balanced and the Health Factor returns to a stable state. This ensures the ecosystem's stability across multiple networks.
+
+### **Ecosystem Pool Balancing and Delays**
+
+- **Balancing Across Chains**: In some instances, delays in cross-chain transfers may occur due to **ecosystem pool balancing**. The system automatically adjusts liquidity between chains to ensure the Health Factor remains healthy across the ecosystem.
+- **Delays in Bridging and Transfers**: In rare cases, delays in bridging and token transfers may take up to **30 minutes** while the pool balancing completes. Once the balancing is finished, normal operations resume, and users can continue cross-chain transfers and withdrawals.
+
+---
+
+### **Health Factor Events**
+
+Several events related to the **Health Factor** help track the pool's health status and liquidity:
+
+- **HealthFactorUpdated(uint256 healthFactor)**: Triggered when the health factor is calculated or updated.
+- **PojectsFundsDeposited(uint256 amount)**: Emitted when project funds are deposited, potentially improving the pool's health.
+- **PojectsFundsWithdrawn(uint256 amount, address to)**: Emitted when project funds are withdrawn, which can affect the pool's health.
+
+---
+
+By integrating the **Health Factor** into the contract’s logic, **ChainWave's Stable Bridging System** ensures that the ecosystem remains balanced, secure, and sustainable, minimizing risks associated with liquidity and cross-chain operations.
+
+
 
 ## Smart Contract Workflow
 
