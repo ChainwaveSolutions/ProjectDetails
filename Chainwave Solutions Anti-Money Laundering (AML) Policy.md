@@ -79,6 +79,6 @@ Chainwave Solutions is dedicated to maintaining the highest standards of complia
 ---
 
 **Approval and Adoption**
-This AML Policy has been approved by the Board of Directors of Chainwave Solutions and is effective as of August 24 2024. All employees, officers, directors, contractors, and third-party agents must comply with the terms of this policy.
+This AML Policy has been approved by the Board of Directors of Chainwave Solutions and is effective as of August 2024. All employees, officers, directors, contractors, and third-party agents must comply with the terms of this policy.
 
 ---
