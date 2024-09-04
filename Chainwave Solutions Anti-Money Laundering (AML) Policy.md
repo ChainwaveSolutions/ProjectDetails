@@ -57,14 +57,6 @@ The Company is required to report any suspicious activities to the relevant auth
 
 [Chainwave Solutions SAR Documentation](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/Regulations/SarsFiling.md)
 
-## Record-Keeping
-The Company will maintain records of all customer information, transaction details, and reports of suspicious activities for at least five years. These records will be securely stored and accessible to the relevant authorities upon request.
-
-## Employee Training
-All employees will receive regular training on AML regulations, the Company’s AML policy, and their responsibilities in preventing money laundering and terrorist financing. The training program will be updated to reflect changes in laws and regulations.
-
-## Internal Controls and Audits
-Chainwave Solutions will establish and maintain internal controls to ensure compliance with this policy. Regular audits will be conducted to evaluate the effectiveness of the AML program and identify areas for improvement.
 
 ## Compliance with Sanctions
 The Company will comply with all applicable sanctions programs, including those administered by the Office of Foreign Assets Control (OFAC) and other relevant authorities. The Company will screen customers and transactions against applicable sanctions lists and take appropriate action if a match is identified.
@@ -78,6 +70,15 @@ Employees who become aware of a violation of this policy must report it immediat
 
 [Chainwave Solutions Suspicious Activity Report Template ](https://github.com/ChainwaveSolutions/ProjectDetails/blob/main/Regulations/SarsFiling.md#suspicious-activity-report-sar-template)
 
+
+## Record-Keeping
+The Company will maintain records of all customer information, transaction details, and reports of suspicious activities for at least five years. These records will be securely stored and accessible to the relevant authorities upon request.
+
+## Employee Training
+All employees will receive regular training on AML regulations, the Company’s AML policy, and their responsibilities in preventing money laundering and terrorist financing. The training program will be updated to reflect changes in laws and regulations.
+
+## Internal Controls and Audits
+Chainwave Solutions will establish and maintain internal controls to ensure compliance with this policy. Regular audits will be conducted to evaluate the effectiveness of the AML program and identify areas for improvement.
 
 ## Review and Revision of Policy
 This AML policy will be reviewed and updated regularly to ensure its effectiveness and compliance with current laws and regulations. The AML Compliance Officer is responsible for overseeing the review process.
