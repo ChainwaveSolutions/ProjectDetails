@@ -73,5 +73,3 @@ By integrating Circle Mint, Chainwave can expand its fintech offerings, deliver 
 For more information, visit the official [Circle Mint Documentation](https://developers.circle.com/circle-mint/docs/introducing-circle-mint).
 
 ---
-
-**Note**: If your business doesn’t meet the eligibility requirements for Circle Mint, consider using other crypto service providers to access USDC.
