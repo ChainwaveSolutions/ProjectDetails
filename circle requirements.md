@@ -1,6 +1,4 @@
-Below is the information rewritten in GitHub `README.md` format:
 
-```markdown
 # Circle Mint Access Requirements
 
 To use **Circle Mint** and provide USDC minting services for your business, there are several steps and compliance requirements you must meet. Circle Mint is available for businesses and institutional clients, not for individual retail consumers. Below are the key requirements:
@@ -53,6 +51,3 @@ For more information, visit [Circle Mint Documentation](https://developers.circl
 ---
 
 **Note**: If you do not meet the eligibility criteria for Circle Mint, consider accessing USDC through other supported exchanges and brokers.
-```
-
-This `README.md` file gives businesses and developers a clear overview of the steps and requirements to access Circle Mint. It includes the necessary compliance details, integration possibilities, and operational highlights.
