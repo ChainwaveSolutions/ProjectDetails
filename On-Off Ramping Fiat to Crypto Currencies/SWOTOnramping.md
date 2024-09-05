@@ -1,6 +1,3 @@
-Below is a version of the comparison and SWOT analysis for **on-ramping** (converting fiat into digital assets) using Payoneer, Stripe, and Circle Mint (USDC), formatted for a GitHub `README.md` file:
-
-```markdown
 # Comparison of Payoneer, Stripe, and Circle Mint for On-Ramping
 
 | Feature                         | **Payoneer**                                   | **Stripe**                                    | **Circle Mint (USDC)**                         |
@@ -98,4 +95,4 @@ Below is a version of the comparison and SWOT analysis for **on-ramping** (conve
 - **Circle Mint (USDC)** is the best choice for blockchain-based businesses and individuals looking to on-ramp fiat into digital assets. Its fast, low-cost minting of USDC on multiple blockchains, combined with high transparency and strong regulatory compliance, make it the leading choice for crypto-native solutions.
 
 Each platform excels in different areas, and the best option depends on the business’s needs, geographic location, and whether blockchain/crypto on-ramping is required.
-```
+
