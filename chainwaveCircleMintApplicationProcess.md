@@ -1,6 +1,4 @@
-Here’s how you can write the information in a **GitHub `README.md`** format for Chainwave Solutions accessing **Circle Mint** and the benefits it would provide:
 
-```markdown
 # Chainwave Solutions - Accessing Circle Mint
 
 ## Introduction
@@ -75,8 +73,3 @@ By integrating Circle Mint, Chainwave can expand its fintech offerings, deliver 
 For more information, visit the official [Circle Mint Documentation](https://developers.circle.com/circle-mint/docs/introducing-circle-mint).
 
 ---
-
-**Note**: If your business doesn’t meet the eligibility requirements for Circle Mint, consider using other crypto service providers to access USDC.
-```
-
-This format provides clear and concise information that will guide Chainwave Solutions in accessing Circle Mint while highlighting the benefits in a structured and reader-friendly way.
