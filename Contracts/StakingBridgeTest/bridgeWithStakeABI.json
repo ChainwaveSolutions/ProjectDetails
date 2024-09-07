@@ -1,5 +1,71 @@
 [
 	{
+		"inputs": [],
+		"name": "acceptOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "bytes32",
+						"name": "messageId",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "uint64",
+						"name": "sourceChainSelector",
+						"type": "uint64"
+					},
+					{
+						"internalType": "bytes",
+						"name": "sender",
+						"type": "bytes"
+					},
+					{
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					},
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "token",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amount",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct Client.EVMTokenAmount[]",
+						"name": "destTokenAmounts",
+						"type": "tuple[]"
+					}
+				],
+				"internalType": "struct Client.Any2EVMMessage",
+				"name": "message",
+				"type": "tuple"
+			}
+		],
+		"name": "ccipReceive",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "claimRewards",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -75,6 +141,19 @@
 		"type": "event"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "depositLink",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -107,35 +186,39 @@
 		"type": "event"
 	},
 	{
-		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "OwnerFundsDeposited",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
 				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
 			},
 			{
-				"indexed": false,
+				"internalType": "uint64",
+				"name": "destinationChainSelector",
+				"type": "uint64"
+			},
+			{
 				"internalType": "address",
-				"name": "to",
+				"name": "destinationContract",
 				"type": "address"
 			}
 		],
-		"name": "OwnerFundsWithdrawn",
+		"name": "lockAndSend",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "newOperator",
+				"type": "address"
+			}
+		],
+		"name": "OperatorUpdated",
 		"type": "event"
 	},
 	{
@@ -180,6 +263,69 @@
 		"anonymous": false,
 		"inputs": [
 			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "PojectsFundsDeposited",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			}
+		],
+		"name": "PojectsFundsWithdrawn",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "projectsDepositFunds",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			}
+		],
+		"name": "projectsWithdrawFunds",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
 				"indexed": true,
 				"internalType": "address",
 				"name": "user",
@@ -194,6 +340,68 @@
 		],
 		"name": "RewardsClaimed",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint64",
+				"name": "chainSelector",
+				"type": "uint64"
+			},
+			{
+				"internalType": "bool",
+				"name": "allowed",
+				"type": "bool"
+			}
+		],
+		"name": "setAllowlistedChain",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "contractAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "bool",
+				"name": "allowed",
+				"type": "bool"
+			}
+		],
+		"name": "setAllowlistedContract",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_operator",
+				"type": "address"
+			}
+		],
+		"name": "setOperator",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "stakeTokens",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -296,6 +504,19 @@
 		"type": "event"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -309,21 +530,14 @@
 		"type": "event"
 	},
 	{
-		"inputs": [],
-		"name": "BASIS_POINTS",
-		"outputs": [
+		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "amount",
 				"type": "uint256"
 			}
 		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "acceptOwnership",
+		"name": "unstakeTokens",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -331,38 +545,24 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint64",
-				"name": "chainSelector",
-				"type": "uint64"
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
 			},
-			{
-				"internalType": "bool",
-				"name": "allowed",
-				"type": "bool"
-			}
-		],
-		"name": "allowlistChain",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
 			{
 				"internalType": "address",
-				"name": "contractAddress",
+				"name": "to",
 				"type": "address"
-			},
-			{
-				"internalType": "bool",
-				"name": "allowed",
-				"type": "bool"
 			}
 		],
-		"name": "allowlistContract",
+		"name": "withdrawLink",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"stateMutability": "payable",
+		"type": "receive"
 	},
 	{
 		"inputs": [
@@ -404,6 +604,19 @@
 	},
 	{
 		"inputs": [],
+		"name": "BASIS_POINTS",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "bridgeFeePercentage",
 		"outputs": [
 			{
@@ -422,91 +635,6 @@
 			{
 				"internalType": "uint256",
 				"name": "healthFactor",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"components": [
-					{
-						"internalType": "bytes32",
-						"name": "messageId",
-						"type": "bytes32"
-					},
-					{
-						"internalType": "uint64",
-						"name": "sourceChainSelector",
-						"type": "uint64"
-					},
-					{
-						"internalType": "bytes",
-						"name": "sender",
-						"type": "bytes"
-					},
-					{
-						"internalType": "bytes",
-						"name": "data",
-						"type": "bytes"
-					},
-					{
-						"components": [
-							{
-								"internalType": "address",
-								"name": "token",
-								"type": "address"
-							},
-							{
-								"internalType": "uint256",
-								"name": "amount",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct Client.EVMTokenAmount[]",
-						"name": "destTokenAmounts",
-						"type": "tuple[]"
-					}
-				],
-				"internalType": "struct Client.Any2EVMMessage",
-				"name": "message",
-				"type": "tuple"
-			}
-		],
-		"name": "ccipReceive",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "claimRewards",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "depositLink",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "developerStake",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
 				"type": "uint256"
 			}
 		],
@@ -642,26 +770,16 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint64",
-				"name": "destinationChainSelector",
-				"type": "uint64"
-			},
+		"inputs": [],
+		"name": "operator",
+		"outputs": [
 			{
 				"internalType": "address",
-				"name": "destinationContract",
+				"name": "",
 				"type": "address"
 			}
 		],
-		"name": "lockAndSend",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -678,34 +796,16 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
+		"inputs": [],
+		"name": "projectsStake",
+		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "amount",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "ownerDepositFunds",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			}
-		],
-		"name": "ownerWithdrawFunds",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -725,19 +825,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "stakeTokens",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -805,19 +892,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "treasury",
 		"outputs": [
@@ -829,71 +903,5 @@
 		],
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "unstakeTokens",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_bridgeFeePercentage",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_stakingFeePercentage",
-				"type": "uint256"
-			}
-		],
-		"name": "updateFees",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_treasury",
-				"type": "address"
-			}
-		],
-		"name": "updateTreasury",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			}
-		],
-		"name": "withdrawLink",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"stateMutability": "payable",
-		"type": "receive"
 	}
 ]
