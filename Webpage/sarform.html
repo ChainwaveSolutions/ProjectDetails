@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Suspicious Activity Report (SAR) Filing Form for Chainwave Solutions.">
+    <meta name="author" content="Chainwave Solutions Inc">
+
+    <title>SAR Filing Form - Chainwave Solutions Inc.</title>
+
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/fontawesome-all.css" rel="stylesheet">
+    <link href="css/swiper.css" rel="stylesheet">
+    <link href="css/magnific-popup.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
+	<!-- Favicon  -->
+    <link rel="icon" href="images/favicon.png">
+</head>
+<body data-spy="scroll" data-target=".fixed-top">
+
+    <!-- Preloader -->
+	<div class="spinner-wrapper">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <!-- end of preloader -->
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
+        <a class="navbar-brand logo-image" href="index.html"><img src="images/textlogo.png" alt="logo"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-awesome fas fa-bars"></span>
+            <span class="navbar-toggler-awesome fas fa-times"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#header">HOME <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#features">FEATURES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#preview">VISION</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="index.html#details">DETAILS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#contact">REGISTER</a>
+                </li>
+            </ul>
+        </div>
+    </nav> <!-- end of navbar -->
+
+    <!-- Header -->
+    <header id="header" class="ex-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>SAR Filing Form - Chainwave Solutions Inc.</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SAR Filing Form -->
+    <div class="ex-basic-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <div class="text-container">
+                        <form action="/submit_sar" method="POST">
+                            <h3>SAR Filing Form</h3>
+                            <!-- SAR Reference Number -->
+                            <div class="form-group">
+                                <label for="sarReferenceNumber">SAR Reference Number</label>
+                                <input type="text" class="form-control" id="sarReferenceNumber" name="sarReferenceNumber" placeholder="Enter unique reference number" required>
+                            </div>
+                            <!-- Filing Date -->
+                            <div class="form-group">
+                                <label for="filingDate">Filing Date</label>
+                                <input type="date" class="form-control" id="filingDate" name="filingDate" required>
+                            </div>
+                            <!-- Report Type -->
+                            <div class="form-group">
+                                <label for="reportType">Report Type</label>
+                                <select class="form-control" id="reportType" name="reportType" required>
+                                    <option value="initial">Initial</option>
+                                    <option value="continuing">Continuing</option>
+                                </select>
+                            </div>
+                            <!-- Filing Institution Information -->
+                            <h4>Filing Institution Information</h4>
+                            <div class="form-group">
+                                <label for="institutionName">Name</label>
+                                <input type="text" class="form-control" id="institutionName" name="institutionName" value="Chainwave Solutions Inc." readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="institutionAddress">Address</label>
+                                <input type="text" class="form-control" id="institutionAddress" name="institutionAddress" placeholder="Enter company address" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactInformation">Contact Information</label>
+                                <input type="text" class="form-control" id="contactInformation" name="contactInformation" placeholder="Phone number, email address" required>
+                            </div>
+                            <!-- Subject Information -->
+                            <h4>Subject Information</h4>
+                            <div class="form-group">
+                                <label for="subjectName">Name</label>
+                                <input type="text" class="form-control" id="subjectName" name="subjectName" placeholder="Enter full name of the individual or entity" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subjectAddress">Address</label>
+                                <input type="text" class="form-control" id="subjectAddress" name="subjectAddress" placeholder="Enter full address" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subjectIdNumber">Identification Number</label>
+                                <input type="text" class="form-control" id="subjectIdNumber" name="subjectIdNumber" placeholder="e.g., SSN, Tax ID, Passport Number" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dobFormation">Date of Birth/Formation</label>
+                                <input type="date" class="form-control" id="dobFormation" name="dobFormation" required>
+                            </div>
+                            <!-- Account/Transaction Information -->
+                            <h4>Account/Transaction Information</h4>
+                            <div class="form-group">
+                                <label for="accountNumbers">Account Number(s)</label>
+                                <input type="text" class="form-control" id="accountNumbers" name="accountNumbers" placeholder="Enter account numbers involved" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="transactionDates">Transaction Date(s)</label>
+                                <input type="date" class="form-control" id="transactionDates" name="transactionDates" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="transactionAmounts">Transaction Amount(s)</label>
+                                <input type="text" class="form-control" id="transactionAmounts" name="transactionAmounts" placeholder="Enter transaction amounts involved" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="transactionType">Type of Transaction</label>
+                                <input type="text" class="form-control" id="transactionType" name="transactionType" placeholder="e.g., Deposit, Withdrawal, Wire Transfer" required>
+                            </div>
+                            <!-- Description of Suspicious Activity -->
+                            <h4>Description of Suspicious Activity</h4>
+                            <div class="form-group">
+                                <label for="suspiciousActivity">Description</label>
+                                <textarea class="form-control" id="suspiciousActivity" name="suspiciousActivity" rows="5" placeholder="Provide a detailed narrative of the suspicious activity" required></textarea>
+                            </div>
+                            <!-- Nature of Suspicion -->
+                            <h4>Nature of Suspicion</h4>
+                            <div class="form-group">
+                                <label for="natureOfSuspicion">Explain why the activity is considered suspicious</label>
+                                <textarea class="form-control" id="natureOfSuspicion" name="natureOfSuspicion" rows="5" placeholder="Reference specific patterns, behaviors, or discrepancies" required></textarea>
+                            </div>
+                            <!-- Supporting Documentation -->
+                            <h4>Supporting Documentation</h4>
+                            <div class="form-group">
+                                <label for="supportingDocs">List any attached or referenced documents</label>
+                                <textarea class="form-control" id="supportingDocs" name="supportingDocs" rows="3" placeholder="e.g., transaction records, customer identification documents" required></textarea>
+                            </div>
+                            <!-- AML Compliance Officer Information -->
+                            <h4>AML Compliance Officer</h4>
+                            <div class="form-group">
+                                <label for="complianceOfficerName">Name</label>
+                                <input type="text" class="form-control" id="complianceOfficerName" name="complianceOfficerName" placeholder="Enter AML Compliance Officer's name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="sarFilingDate">Date of SAR Filing</label>
+                                <input type="date" class="form-control" id="sarFilingDate" name="sarFilingDate" required>
+                            </div>
+                            <!-- Confidentiality Notice -->
+                            <h4>Confidentiality Notice</h4>
+                            <p>This SAR and its contents are strictly confidential. Unauthorized disclosure of this report or its contents is prohibited by law.</p>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary">Submit SAR</button>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="footer-col">
+                        <h4>About Chainwave Solutions</h4>
+                        <p>Chainwave Solutions focuses on blockchain and fintech development to deliver secure and compliant solutions.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="footer-col middle">
+                        <h4>Important Links</h4>
+                        <ul class="list-unstyled li-space-lg">
+                            <li class="media">
+                                <i class="fas fa-square"></i>
+                                <div class="media-body">SAR Filing Guide <a class="turquoise" href="sar-filing.html">SAR Filing Guide</a></div>
+                            </li>
+                            <li class="media">
+                                <i class="fas fa-square"></i>
+                                <div class="media-body">Read our <a class="turquoise" href="terms-conditions.html">Terms & Conditions</a>, <a class="turquoise" href="privacy-policy.html">Privacy Policy</a></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="footer-col last">
+                        <h4>Social Media</h4>
+                        <span class="fa-stack">
+                            <a href="#your-link">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook-f fa-stack-1x"></i>
+                            </a>
+                        </span>
+                        <span class="fa-stack">
+                            <a href="#your-link">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-twitter fa-stack-1x"></i>
+                            </a>
+                        </span>
+                        <span class="fa-stack">
+                            <a href="#your-link">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-linkedin-in fa-stack-1x"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="p-small">Copyright © Chainwave Solutions Inc - <a href="http://www.chainwavesolutions.com">Chainwave Solutions</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>
