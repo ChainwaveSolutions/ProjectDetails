@@ -1,189 +1,167 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-// Chainlink CCIP Imports
-import {IRouterClient} from "@chainlink/contracts-ccip/src/v0.8/ccip/interfaces/IRouterClient.sol";
-import {OwnerIsCreator} from "@chainlink/contracts-ccip/src/v0.8/shared/access/OwnerIsCreator.sol";
-import {Client} from "@chainlink/contracts-ccip/src/v0.8/ccip/libraries/Client.sol";
-import {IERC20} from "@chainlink/contracts-ccip/src/v0.8/vendor/openzeppelin-solidity/v4.8.3/contracts/token/ERC20/IERC20.sol";
-import {SafeERC20} from "@chainlink/contracts-ccip/src/v0.8/vendor/openzeppelin-solidity/v4.8.3/contracts/token/ERC20/utils/SafeERC20.sol";
-
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/access/AccessControl.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {IRouterClient} from "@chainlink/contracts-ccip/src/v0.8/ccip/interfaces/IRouterClient.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {Client} from "@chainlink/contracts-ccip/src/v0.8/ccip/libraries/Client.sol";
 
-contract BNMToken is ERC20Burnable, AccessControl, ReentrancyGuard {
+contract CrossChainToken is ERC20, Ownable, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
-    // Roles for access control
-    bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
-    bytes32 public constant CCIP_SENDER_ROLE = keccak256("CCIP_SENDER_ROLE");
+    address public operator;
+    address public treasury; // Treasury address for bridge fees
+    uint256 public bridgeFee = 325; // 3.25% bridge fee
+    address public linkToken; // LINK token for CCIP fees
+    IRouterClient public ccipRouter; // Chainlink CCIP Router
 
-    // LINK token address and CCIP Router for cross-chain communication
-    IERC20 public linkToken;
-    IRouterClient public ccipRouter;
+    // Mapping of allowed contracts by chain ID for minting
+    mapping(uint64 => mapping(address => bool)) public allowedContractsForMinting;
 
-    // Treasury address for collecting the 4% fee
-    address public treasuryAddress;
+    // Allowed CCIP chain IDs
+    mapping(uint64 => bool) public allowedChains;
 
-    // Unified allowed contracts mapping (chainId => contractAddress => allowed)
-    mapping(uint64 => mapping(address => bool)) public allowedContracts;
+    event BridgeInitiated(address indexed sender, address indexed receiver, uint256 amount, uint64 destinationChainId, address destinationContract);
+    event TokenMinted(address indexed recipient, uint256 amount);
+    event TokenBurned(address indexed burner, uint256 amount);
+    event OperatorChanged(address indexed newOperator);
+    event TreasuryChanged(address indexed newTreasury);
+    event ContractAllowed(uint64 indexed chainId, address contractAddress, bool allowed);
+    event ChainAllowed(uint64 indexed chainId, bool allowed);
 
-    // Store allowed destination chains in an array for easy reading
-    uint64[] public allowedDestinationChains;
+    modifier onlyOperatorOrOwner() {
+        require(msg.sender == operator || msg.sender == owner(), "Not operator or owner");
+        _;
+    }
 
-    // Fee percentage (3.25%)
-    uint256 public constant FEE_PERCENTAGE = 325; // Representing 3.25%
-
-    // Events for monitoring activities
-    event TokensBurnt(address indexed sender, uint256 amount, uint64 destinationChainId, bytes32 messageId);
-    event TokensMinted(address indexed receiver, uint256 amount, uint64 sourceChainId, bytes32 messageId);
-    event FeeCollected(address indexed treasury, uint256 amount);
-    event LinkDeposited(address indexed sender, uint256 amount);
-    event LinkWithdrawn(address indexed receiver, uint256 amount);
-
-    constructor(address _ccipRouter, address _linkToken, address _treasuryAddress) ERC20("BNMToken", "BNM") {
-        // Grant roles to the deployer
-        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _grantRole(ADMIN_ROLE, msg.sender);
-        _grantRole(CCIP_SENDER_ROLE, msg.sender);
-
+    constructor(
+        string memory name_,
+        string memory symbol_,
+        address _ccipRouter,
+        address _linkToken,
+        address _treasury
+    ) ERC20(name_, symbol_) Ownable(msg.sender) {  // Fixing the constructor by passing msg.sender to Ownable
         ccipRouter = IRouterClient(_ccipRouter);
-        linkToken = IERC20(_linkToken);
-        treasuryAddress = _treasuryAddress;
+        linkToken = _linkToken;
+        treasury = _treasury;
     }
 
-    // Set the treasury address
-    function setTreasuryAddress(address _treasuryAddress) external onlyRole(ADMIN_ROLE) {
-        treasuryAddress = _treasuryAddress;
+    // Allow the contract to accept LINK tokens for paying CCIP fees
+    receive() external payable {}
+
+    // Function to get the current LINK balance in the contract
+    function getLinkBalance() external view returns (uint256) {
+        return IERC20(linkToken).balanceOf(address(this));
     }
 
-    // Unified function to allow or disallow contracts on a specific chain (both source and destination)
-    function setAllowedContract(uint64 chainId, address contractAddress, bool allowed) external onlyRole(ADMIN_ROLE) {
-        allowedContracts[chainId][contractAddress] = allowed;
-
-        // Add the chainId to the allowedDestinationChains array if it's newly allowed and not already added
-        if (allowed && !isChainInAllowedList(chainId)) {
-            allowedDestinationChains.push(chainId);
-        }
+    // Admin function to withdraw any ERC20 tokens (including LINK) sent to the contract
+    function withdrawTokens(address token, uint256 amount) external onlyOwner {
+        IERC20(token).safeTransfer(msg.sender, amount);
     }
 
-    // Function to check if a chainId is already in the allowed list
-    function isChainInAllowedList(uint64 chainId) internal view returns (bool) {
-        for (uint256 i = 0; i < allowedDestinationChains.length; i++) {
-            if (allowedDestinationChains[i] == chainId) {
-                return true;
-            }
-        }
-        return false;
+    // Set the operator who can mint new tokens
+    function setOperator(address newOperator) external onlyOwner {
+        operator = newOperator;
+        emit OperatorChanged(newOperator);
     }
 
-    // Read-only function to return all allowed contracts for a specific chain
-    function getAllowedContracts(uint64 chainId) external view returns (address[] memory) {
-        uint256 count = 0;
-        address[] memory contractsList = new address[](10); // Assuming a max of 10 contracts per chain, adjust as needed
-
-        for (uint256 i = 0; i < contractsList.length; i++) {
-            if (allowedContracts[chainId][contractsList[i]]) {
-                contractsList[count] = contractsList[i];
-                count++;
-            }
-        }
-
-        return contractsList;
+    // Set the treasury address for receiving bridge fees
+    function setTreasury(address newTreasury) external onlyOwner {
+        treasury = newTreasury;
+        emit TreasuryChanged(newTreasury);
     }
 
-    // Read-only function to return all allowed destination chain selectors
-    function getAllowedDestinationChains() external view returns (uint64[] memory) {
-        return allowedDestinationChains;
+    // Mint tokens by owner or operator
+    function mint(address to, uint256 amount) external onlyOperatorOrOwner {
+        _mint(to, amount);
+        emit TokenMinted(to, amount);
     }
 
-    // Deposit LINK tokens into the contract to pay for CCIP fees
-    function depositLink(uint256 amount) external nonReentrant {
-        require(amount > 0, "Amount must be greater than 0");
-        linkToken.safeTransferFrom(msg.sender, address(this), amount);
-        emit LinkDeposited(msg.sender, amount);
+    // Burn tokens before bridging
+    function burn(uint256 amount) external {
+        _burn(msg.sender, amount);
+        emit TokenBurned(msg.sender, amount);
     }
 
-    // Withdraw LINK tokens from the contract (only for admin)
-    function withdrawLink(uint256 amount) external onlyRole(ADMIN_ROLE) nonReentrant {
-        require(linkToken.balanceOf(address(this)) >= amount, "Insufficient LINK balance");
-        linkToken.safeTransfer(msg.sender, amount);
-        emit LinkWithdrawn(msg.sender, amount);
+    // Allow or disallow contracts on specific chains for minting
+    function allowContractOnChain(uint64 chainId, address contractAddress, bool allowed) external onlyOwner {
+        allowedContractsForMinting[chainId][contractAddress] = allowed;
+        emit ContractAllowed(chainId, contractAddress, allowed);
     }
 
-    // Cross-chain token transfer using CCIP with 3.25% fee and dynamic destination contract
-    function sendToChain(
+    // Allow or disallow specific chain IDs for CCIP
+    function allowChain(uint64 chainId, bool allowed) external onlyOwner {
+        allowedChains[chainId] = allowed;
+        emit ChainAllowed(chainId, allowed);
+    }
+
+    // Bridge tokens to another chain using CCIP, using LINK tokens held by the contract for fees
+    function bridgeTokens(
+        uint256 amount,
         uint64 destinationChainId,
-        address receiverAddress,
-        address destinationContract,  // Dynamic destination contract address
-        uint256 amount
-    ) external nonReentrant onlyRole(CCIP_SENDER_ROLE) {
-        require(allowedContracts[destinationChainId][destinationContract], "Destination contract not allowed");
-        require(balanceOf(msg.sender) >= amount, "Insufficient token balance");
+        address receiver,
+        address destinationContract
+    ) external nonReentrant {
+        require(allowedChains[destinationChainId], "Destination chain not allowed");
+        require(allowedContractsForMinting[destinationChainId][destinationContract], "Destination contract not allowed");
+        require(receiver != address(0), "Invalid receiver address");
 
-        // Calculate the 3.25% fee and the net amount to send
-        uint256 feeAmount = (amount * FEE_PERCENTAGE) / 10000;  // 3.25% fee calculation
-        uint256 netAmount = amount - feeAmount;
+        uint256 feeAmount = (amount * bridgeFee) / 10000; // 3.25% fee
+        uint256 amountAfterFee = amount - feeAmount;
 
-        // Send the fee to the treasury address
-        _transfer(msg.sender, treasuryAddress, feeAmount);
-        emit FeeCollected(treasuryAddress, feeAmount);
+        // Burn the tokens
+        _burn(msg.sender, amount);
 
-        // Burn the net amount of tokens on the source chain
-        _burn(msg.sender, netAmount);
-        emit TokensBurnt(msg.sender, netAmount, destinationChainId, keccak256(abi.encodePacked(block.timestamp, msg.sender, receiverAddress, netAmount)));
+        // Transfer the fee to the treasury
+        _mint(treasury, feeAmount);
 
-        // Create the CCIP message (Client.EVMTokenAmount[] array)
-        Client.EVMTokenAmount[] memory tokenAmounts = new Client.EVMTokenAmount[](1);
+        // Declare and initialize the `tokenAmounts` array
+        Client.EVMTokenAmount[] memory tokenAmounts = new Client.EVMTokenAmount[](1); // Declare memory array with one element
+
+        // Populate the `tokenAmounts` array
         tokenAmounts[0] = Client.EVMTokenAmount({
             token: address(this),
-            amount: netAmount
+            amount: amountAfterFee
         });
 
-        // Create the CCIP message (Client.EVM2AnyMessage)
+        // Prepare the cross-chain message with the receiver's address
+        bytes memory data = abi.encode(receiver);
         Client.EVM2AnyMessage memory message = Client.EVM2AnyMessage({
-            receiver: abi.encode(destinationContract), // Specify destination contract address
-            data: abi.encode(receiverAddress),          // The receiver address on the destination chain
-            tokenAmounts: tokenAmounts,
-            feeToken: address(linkToken),
-            extraArgs: ""
+            receiver: abi.encode(destinationContract),
+            data: data,
+            tokenAmounts: tokenAmounts, // Use the `tokenAmounts` array
+            feeToken: linkToken, // Use LINK tokens held by the contract for paying CCIP fees
+            extraArgs: "" // Optional extra arguments, can be left empty
         });
 
-        // Estimate the LINK fee required and approve the CCIP Router to spend LINK tokens
-        uint256 estimatedFee = estimateCCIPFee(destinationChainId, message);
-        require(linkToken.balanceOf(address(this)) >= estimatedFee, "Insufficient LINK tokens for CCIP fee");
-        linkToken.safeApprove(address(ccipRouter), estimatedFee);
-
-        // Send the cross-chain message using CCIP and pay the fee in LINK tokens
+        // Send the message using Chainlink CCIP router
         ccipRouter.ccipSend(destinationChainId, message);
-
-        // After sending the message, reset the approval to 0 to prevent over-approval issues
-        linkToken.safeApprove(address(ccipRouter), 0);
+        emit BridgeInitiated(msg.sender, receiver, amountAfterFee, destinationChainId, destinationContract);
     }
 
-    // Estimate CCIP fee based on the destination chain and message structure
-    function estimateCCIPFee(uint64 destinationChainId, Client.EVM2AnyMessage memory message) public view returns (uint256) {
-        return ccipRouter.getFee(destinationChainId, message);
-    }
-
-    // Handle incoming CCIP messages to mint tokens on the destination chain
-    function ccipReceive(
-        uint64 sourceChainId,
-        bytes calldata sender,
-        bytes calldata data
-    ) external nonReentrant {
+    // Receive CCIP message and mint tokens to the recipient, only from allowed contracts and chains
+    function ccipReceive(Client.EVM2AnyMessage memory message) external {
         require(msg.sender == address(ccipRouter), "Unauthorized sender");
 
-        // Ensure the sender contract is allowed on the source chain
-        address sourceContract = abi.decode(sender, (address));
-        require(allowedContracts[sourceChainId][sourceContract], "Source contract not allowed");
+        // Decode the receiver's address and the sender's contract on the source chain
+        address receiver = abi.decode(message.data, (address));
 
-        // Decode the payload to get receiver address and amount
-        (address receiverAddress, uint256 netAmount) = abi.decode(data, (address, uint256));
+        // Assuming the correct field is `amounts`
+        uint256 amount = message.tokenAmounts[0].amount;
 
-        // Mint tokens to the receiver on the destination chain
-        _mint(receiverAddress, netAmount);
-        emit TokensMinted(receiverAddress, netAmount, sourceChainId, keccak256(abi.encodePacked(block.timestamp, sender, receiverAddress, netAmount)));
+        // Get the originating chain ID from the message (chainSelector)
+        uint64 originatingChainId = uint64(bytes8(message.receiver));
+
+        // Validate the chain ID and originating contract
+        require(allowedChains[originatingChainId], "Originating chain not allowed");
+        require(allowedContractsForMinting[originatingChainId][address(this)], "Sender contract not allowed");
+
+        // Mint tokens to the receiver
+        _mint(receiver, amount);
+        emit TokenMinted(receiver, amount);
     }
+
 }
