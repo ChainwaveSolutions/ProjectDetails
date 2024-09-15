@@ -1,6 +1,24 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+/*
+
+fuji
+-
+contract: 0x8bCfdFBa1541f8F449ef9EC9c0dEFC57cF483069
+chainselector: 14767482510784806043
+router: 0xF694E193200268f9a4868e4Aa017A0118C9a8177
+link: 0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846
+
+base
+-
+contract: 0xD3C3dE07521a35fF1bC69CC2fc070fBdDf647F24
+chainselector: 10344971235874465080
+router: 0xD3b06cEbF099CE7DA4AcCf578aaebFDBd6e88a93
+link: 0xE4aB69C077896252FAFBD49EFD26B5D171A32410
+
+*/
+
 // Chainlink CCIP Imports
 import {IRouterClient} from "@chainlink/contracts-ccip/src/v0.8/ccip/interfaces/IRouterClient.sol";
 import {OwnerIsCreator} from "@chainlink/contracts-ccip/src/v0.8/shared/access/OwnerIsCreator.sol";
@@ -41,6 +59,7 @@ contract BNMToken is ERC20Burnable, AccessControl, ReentrancyGuard {
     event FeeCollected(address indexed treasury, uint256 amount);
     event LinkDeposited(address indexed sender, uint256 amount);
     event LinkWithdrawn(address indexed receiver, uint256 amount);
+    event EstimatedFeeLogged(uint256 estimatedFee); // New event for logging the estimated fee
 
     constructor(address _ccipRouter, address _linkToken, address _treasuryAddress) ERC20("BNMToken", "BNM") {
         // Grant roles to the deployer
@@ -56,6 +75,11 @@ contract BNMToken is ERC20Burnable, AccessControl, ReentrancyGuard {
     // Set the treasury address
     function setTreasuryAddress(address _treasuryAddress) external onlyRole(ADMIN_ROLE) {
         treasuryAddress = _treasuryAddress;
+    }
+
+    // Admin mint function to mint tokens for liquidity, distribution, or any other purpose
+    function mint(address to, uint256 amount) external onlyRole(ADMIN_ROLE) {
+        _mint(to, amount);
     }
 
     // Unified function to allow or disallow contracts on a specific chain (both source and destination)
@@ -76,26 +100,6 @@ contract BNMToken is ERC20Burnable, AccessControl, ReentrancyGuard {
             }
         }
         return false;
-    }
-
-    // Read-only function to return all allowed contracts for a specific chain
-    function getAllowedContracts(uint64 chainId) external view returns (address[] memory) {
-        uint256 count = 0;
-        address[] memory contractsList = new address[](10); // Assuming a max of 10 contracts per chain, adjust as needed
-
-        for (uint256 i = 0; i < contractsList.length; i++) {
-            if (allowedContracts[chainId][contractsList[i]]) {
-                contractsList[count] = contractsList[i];
-                count++;
-            }
-        }
-
-        return contractsList;
-    }
-
-    // Read-only function to return all allowed destination chain selectors
-    function getAllowedDestinationChains() external view returns (uint64[] memory) {
-        return allowedDestinationChains;
     }
 
     // Deposit LINK tokens into the contract to pay for CCIP fees
@@ -150,9 +154,13 @@ contract BNMToken is ERC20Burnable, AccessControl, ReentrancyGuard {
             extraArgs: ""
         });
 
-        // Estimate the LINK fee required and approve the CCIP Router to spend LINK tokens
+        // Estimate the LINK fee required and log it
         uint256 estimatedFee = estimateCCIPFee(destinationChainId, message);
+        emit EstimatedFeeLogged(estimatedFee); // Log the estimated fee
+
         require(linkToken.balanceOf(address(this)) >= estimatedFee, "Insufficient LINK tokens for CCIP fee");
+
+        // Approve LINK tokens for CCIP Router
         linkToken.safeApprove(address(ccipRouter), estimatedFee);
 
         // Send the cross-chain message using CCIP and pay the fee in LINK tokens
