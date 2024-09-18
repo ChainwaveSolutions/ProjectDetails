@@ -42,7 +42,8 @@ const ethersConfig = defaultConfig({
   defaultChainId: 84532,
   rpcUrl: 'https://sepolia.base.org',
   auth: {
-    email: false,
+    email: true, // default to true
+    socials: ['google', 'x', 'github', 'discord', 'apple', 'facebook', 'farcaster'],
     showWallets: true,
     walletFeatures: true
   }
