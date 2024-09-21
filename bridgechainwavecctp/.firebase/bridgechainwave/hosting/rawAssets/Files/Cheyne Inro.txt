@@ -1,0 +1,83 @@
+Technology Used in creation of Application
+
+https://vitejs.dev/
+https://walletconnect.com/
+
+
+
+steps
+
+1 - Modal connection - npm install @web3modal/ethers ethers
+2 - Framework Vite.js - npm create vite@latest
+  a: React with Typescript
+3 - Setup Constants and configs to have display with all connections
+  a: Main.tsx written
+  b: App.tsx written
+4 React Dom Router for page linking and switching
+5 Install Ethers 6
+6 Setup Social Account and Smart Wallet Support
+7 Gather Assets files and images - create public folder to store
+8 Setup Redirects so Server can reference page links in dapp via urls
+9 Setup Price feeds and Api for Initial Chain Selected
+10 Build in multichain access from the start
+
+
+
+
+
+
+
+Envisioned requirements
+
+Onramp Off Ramp - What for?
+  a: Cex
+  b: Bridging
+  c: Goods and Services
+will consider all 3 above in creation
+
+Cex
+Pivate EVM to be created
+Complete Exchange to be created
+reserve funds to maintain trust and Stable peg of currencies
+Wealth Accumulation and LP Pair building (see bridging below)
+Volume bot trading
+Triangular cross dex arbitrage to keep prices pegged and not just fake numbered from an api
+On rampin off ramping of funds
+Complete private chain to be built hosted on server with external users on accessing frontend monetary sevices
+
+
+Bridging
+So many services to piggy back off we be better using tried and trusted until our trustbase built
+consider all chains in bridging with an eye on costs (maintain LP everychain supported in stable elixrstable bridge token)
+leave this til our trustbase builtup with a quality service and product although ......
+bridge partner and close partnership required for Cex bridge to private chain ( See Cex )
+
+Goods and Services
+
+If Looking at utilising Payment of goods and services
+Product and service marketplace (see ebay amazon and even Fiverr services )
+To do this id recomend a NFT Style system with users creating a product (created as and list as an NFT in data sense)
+NFT marketplace with buy sell auction and Pay with Fiat or #7bc3fdchips see opensea payment types
+with this the metadata holds product information and all relevent data to market as a product
+NFT Creaters would be "Sellers" and process the sale or service and deliver the products
+
+this being monitored by a customer support and also fraud team for nefarious dealings and will incur a premium insurance that would have to be honoured when proven false
+so think sellers hold a bank of min funds and lose it if nefariuos
+
+ok so the thre options
+
+also
+
+Business Directory with searchable business and services that will be maped and location data listed when business registers on elixr site
+then seller score hold commitments
+and all the details
+phonebook of elixr businesses we support
+
+then comes hardware
+pay with defi in store
+look up afterpay zippay muni and all others
+
+so Yup can do remember the meeting in full and am excited to start works if chosen to be part of elixr team
+i will require small items and funds to be able to complete tasks at hand and will submit spend request of thinking of these items to be discussed and approved if satisfactory
+
+i am a business professional but u wont know it by how i speak or come accross though i will be sure to impress with my skillset and knowledgebase
