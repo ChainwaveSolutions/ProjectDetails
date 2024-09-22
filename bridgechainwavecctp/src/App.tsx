@@ -7,6 +7,7 @@ import LandingPage from './LandingPage';
 import USDCBridgetests from './USDCBridgetests';
 import USDCSend from './USDCSend';
 import UserCreate from './UserCreate';
+import Table from './Table';
 
 
 
@@ -137,8 +138,8 @@ const modal = createWeb3Modal({
           <Route path="/landing" element={<LandingPage />} />
             <Route path="/usdctestbridge" element={<USDCBridgetests />} />
               <Route path="/usdcsend" element={<USDCSend />} />
-
-                <Route path="/create" element={<UserCreate />} />
+                <Route path="/table" element={<Table />} />
+                  <Route path="/create" element={<UserCreate />} />
       </Routes>
     </Router>
   );
