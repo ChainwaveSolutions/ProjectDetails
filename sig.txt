@@ -1,0 +1,22 @@
+vit.js
+firebase backend and database and server info
+
+simplify backend with firebase over other systems and have access to serverless functions and hostingso think
+
+databasedeployment
+
+npm i -g firebase-tools
+
+firebase experiments:enable webframeworks
+
+
+
+<div style="text-align:center; padding: 10px 0;">
+  <a href="https://chainwave.tech" target="_blank" style="text-decoration:none;">
+    <img src="https://chainwave.tech/logobk.png" alt="Chainwave Logo" style="width: 100px; height: auto;">
+  </a>
+  <p style="margin: 5px 0; font-family: Arial, sans-serif; color: #555;">
+    <strong>ChainWave Solutions</strong><br>
+    <a href="https://chainwave.tech" target="_blank" style="color: #007BFF; text-decoration:none;">https://chainwave.tech</a>
+  </p>
+</div>

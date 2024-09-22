@@ -2118,7 +2118,7 @@
   resolved "https://registry.npmjs.org/@firebase/auth-types/-/auth-types-0.12.2.tgz"
   integrity sha512-qsEBaRMoGvHO10unlDJhaKSuPn4pyoTtlQuP1ghZfzB6rNQPuhp/N/DcFZxm9i4v0SogjCbf9reWupwIvfmH6w==
 
-"@firebase/auth@1.7.9":
+"@firebase/auth@^1.7.9", "@firebase/auth@1.7.9":
   version "1.7.9"
   resolved "https://registry.npmjs.org/@firebase/auth/-/auth-1.7.9.tgz"
   integrity sha512-yLD5095kVgDw965jepMyUrIgDklD6qH/BZNHeKOgvu7pchOKNjVM+zQoOVYJIKWMWOWBq8IRNVU6NXzBbozaJg==

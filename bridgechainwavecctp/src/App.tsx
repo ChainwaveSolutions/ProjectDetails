@@ -10,6 +10,9 @@ import USDCBridgetests from './USDCBridgetests';
 // <Route path="/usdcsend" element={<USDCSend />} />
 //
 //   <Route path="/create" element={<UserCreate />} />
+import RegisterInterestForm from './Components/RegisterInterestForm';
+import LoginPage from './Components/LoginPage';
+import CreateAccountPage from './CreateAccountPage';
 
 
 import { ethers, BrowserProvider } from 'ethers';
@@ -138,6 +141,9 @@ const modal = createWeb3Modal({
         <Route path="/" element={<LandingPage />} />
           <Route path="/landing" element={<LandingPage />} />
             <Route path="/usdctestbridge" element={<USDCBridgetests />} />
+            <Route path="/registerinterest" element={<RegisterInterestForm />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/create-account" element={<CreateAccountPage />} />
 
       </Routes>
     </Router>
