@@ -45,7 +45,7 @@ const ethersConfig = defaultConfig({
   rpcUrl: 'https://sepolia.base.org',
   auth: {
     email: true, // default to true
-    socials: ['google', 'x', 'github', 'discord', 'apple', 'facebook', 'farcaster'],
+    socials: ['google', 'x', 'github', 'discord', 'apple', 'facebook'],
     showWallets: true,
     walletFeatures: true
   }
@@ -134,7 +134,7 @@ const modal = createWeb3Modal({
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Intro />} />
+        <Route path="/" element={<LandingPage />} />
           <Route path="/landing" element={<LandingPage />} />
             <Route path="/usdctestbridge" element={<USDCBridgetests />} />
               <Route path="/usdcsend" element={<USDCSend />} />

@@ -79,7 +79,7 @@ const Footer: React.FC = () => {
           <w3m-button />
         </Flex>
 
-                <Text fontSize="xl" mt={2}>&copy;  Chainwave Solutions {currentYear} </Text>
+                <Text fontSize="xl" mt={2}>&copy;  Chainwave Solutions Incorporated {currentYear} </Text>
 
 
                         <Link href="https://faucets.chain.link/" isExternal>
