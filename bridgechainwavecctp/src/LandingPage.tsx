@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Flex,
   Heading,
   Text,
-  Image,
   Button,
   Link,
+  Image,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -15,20 +15,14 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Stack,
 } from '@chakra-ui/react';
-
+import { motion } from 'framer-motion';
 import Footer from './Components/Footer/Footer';
 import RegisterInterestForm from './Components/RegisterInterestForm';
-import { motion } from 'framer-motion';
-import { GoogleAuthProvider, getAdditionalUserInfo, signInWithPopup, onAuthStateChanged, signOut } from 'firebase/auth';
-import { auth } from './firebaseConfig'; // Make sure the path to your firebaseConfig is correct
-import { useNavigate } from 'react-router-dom'; // Importing React Router for navigation
+import Table from './table';
+
+
+import Header from './Components/Header'; // Dave heres the Import Header component
 
 const phrases = ["BUSINESS", "FINANCIAL", "CONSUMERS", "EVERYONE"];
 
@@ -57,88 +51,19 @@ const RotatingText = () => {
 
 const LandingPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [user, setUser] = useState<any>(null); // State to store user information
-  const navigate = useNavigate(); // For navigation
-
-  // Google Login
-  const handleGoogleLogin = async () => {
-  const provider = new GoogleAuthProvider();
-  try {
-    const result = await signInWithPopup(auth, provider);
-    const additionalUserInfo = getAdditionalUserInfo(result); // Correctly get additionalUserInfo
-
-    if (additionalUserInfo?.isNewUser) {
-      // Redirect new users to "Create Account" page
-      navigate('/create-account');
-    } else {
-      // Set existing user info in the state
-      setUser(result.user);
-    }
-  } catch (error) {
-    console.error('Error logging in with Google:', error);
-  }
-};
-
-
-  // Handle Logout
-  const handleLogout = async () => {
-    await signOut(auth);
-    setUser(null);
-  };
-
-  // Track authentication state
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user); // Store the user information
-      } else {
-        setUser(null); // User is signed out
-      }
-    });
-
-    return () => unsubscribe(); // Cleanup subscription on unmount
-  }, []);
 
   const buttonGlow = {
     boxShadow: '0 0 15px rgba(128, 0, 255, 0.5)',
     _hover: {
-      boxShadow: '0 0 20px rgba(128, 0, 255, 0.8)',
+      boxShadow: '0 0 50px rgba(128, 0, 255, 0.8)',
     },
   };
 
   return (
     <>
-      {/* Navbar */}
-      <Box flex={1} p={0} m={0} bg="rgba(0, 0, 0, 0)" display="flex" flexDirection="column" color="white">
-        <Flex
-          p={1}
-          backgroundImage="url('/images/header-background.jpg')"
-          justify="space-between"
-          align="center"
-        >
-          <Link href="/">
-            <Image p={0} ml="4" src="/images/textlogo.png" alt="Heading" width="220px" />
-          </Link>
+      {/* Header imoprted now and seperated to ensure uniformity on page dave check components folder for the file */}
+      <Header />
 
-          {/* Login / User Info */}
-          <Flex align="center" mr="4">
-            {user ? (
-              <>
-                <Text mr="4">Hi, {user.displayName.split(' ')[0]}</Text>
-                <Button colorScheme="red" onClick={handleLogout}>
-                  Logout
-                </Button>
-              </>
-            ) : (
-              <Button colorScheme="blue" onClick={handleGoogleLogin}>
-                Login
-              </Button>
-            )}
-          </Flex>
-        </Flex>
-      </Box>
-
-      {/* Header Section */}
       <Box
         id="header"
         bg="gray.800"
@@ -169,32 +94,142 @@ const LandingPage = () => {
                 colorScheme="blue"
                 w="170px"
                 size="lg"
-                onClick={onOpen} // Trigger modal to open the form
+                onClick={onOpen}
                 sx={buttonGlow}
               >
                 Register Interest
               </Button>
               <Link href="#details">
-                <Button
-                  colorScheme="blue"
-                  w="170px"
-                  size="lg"
-                  sx={buttonGlow}
-                >
+                <Button colorScheme="blue" w="170px" size="lg" sx={buttonGlow}>
                   Learn More
                 </Button>
               </Link>
             </Flex>
           </Box>
           <Box flex="1" display="flex" justifyContent="center">
-            <Image
-              src="/images/header-iphone.png"
-              alt="Header Image"
-              boxSize="400px"
-            />
+            <Image src="/images/header-iphone.png" alt="Header Image" boxSize="400px" />
           </Box>
         </Flex>
       </Box>
+
+
+      {/* App Section */}
+      <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #19072b)" color="white">
+      <Image src="/images/textlogo.png" alt="App" w="170px" mx="auto" />
+        <Heading fontSize="2xl" mb={6}>Login or Signup here.</Heading>
+        <Text maxW="600px" mx="auto" mb={6}>
+        </Text>
+        <Flex gap={5} p={4} justify="center" mb={6}>
+
+          <Button bgGradient="linear(to-r, #b531d4, #4567c4)" color="white" w="170px" size="lg" sx={buttonGlow}>
+            Login
+          </Button>
+          <Button bgGradient="linear(to-r, #b531d4, #4567c4)" color="white" w="170px" size="lg" sx={buttonGlow}>
+              Signup
+            </Button>
+        </Flex>
+      </Box>
+
+
+      {/* App Section */}
+      <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #b531d4)" color="white">
+        <Heading as="h2" mb={6}>About Chainwave</Heading>
+        <Text p={4} maxW="600px" mx="auto" mb={6}>
+Welcome to Chainwave Solutions! We're all about making payments faster and easier, whether you're using traditional currency or crypto. Our goal is to bring you the best of both worlds, with quick, secure, and seamless transactions that fit your needs. At Chainwave, we’re driven by innovation and a commitment to keep things simple, efficient, and always customer-focused.
+        </Text>
+        <Flex justify="center" mb={6}>
+        </Flex>
+        <Image src="/images/logoonly.png" alt="App" mx="auto" />
+      </Box>
+
+            {/* How It Works Section */}
+            <Box py={12} bg="#19072b" textAlign="center"  mx="auto">
+              <Heading color="#f6f5f7" as="h2" mb={6}>How It Works?</Heading>
+              <Flex justify="center" flexWrap="wrap">
+              <Box bg="#f6f5f7" p={6} m={4} maxW="325px" textAlign="center">
+              <Box mb={4} display="flex" justifyContent="center">
+                <Image src="/images/svg/trader.svg" alt="Exchanges" boxSize="75px" />
+              </Box>
+              <Heading as="h5" size="sm" mb={4}>Exchanges</Heading>
+              <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
+            </Box>
+
+                <Box bg="#f6f5f7" p={6} m={4} maxW="325px" textAlign="center">
+                <Box mb={4} display="flex" justifyContent="center">
+                  <Image src="/images/svg/exchanges.svg" alt="Exchanges" boxSize="75px" />
+                </Box>
+                <Heading as="h5" size="sm" mb={4}>Exchanges</Heading>
+                <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
+              </Box>
+
+              <Box bg="#f6f5f7" p={6} m={4} maxW="325px" textAlign="center">
+              <Box mb={4} display="flex" justifyContent="center">
+                <Image src="/images/svg/mining.svg" alt="Exchanges" boxSize="75px" />
+              </Box>
+              <Heading as="h5" size="sm" mb={4}>Exchanges</Heading>
+              <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
+            </Box>
+              </Flex>
+              <Button mt={6} bg="#171717" color="white" _hover={{ bg: '#b531d4' }}>
+                Read More
+              </Button>
+            </Box>
+
+            {/* App Section */}
+              <Box py={12} textAlign="center" bgGradient="linear(to-r, #b531d4, #4567c4)" color="white">
+                <Heading p={4}  as="h2" mb={6}>Our Powerful App to Connect It All</Heading>
+                <Text p={4}  maxW="600px" mx="auto" mb={6}>
+          Chainwave Solutions offers an application that leverages advanced blockchain technology to streamline simple transactions. This application ensures that transactions are secure, transparent, and immutable, making them tamper-proof and permanently recorded.          </Text>
+                <Flex gap={5} justify="center" mb={6}>
+
+
+                </Flex>
+                <Image src="/images/header-iphone.png" alt="" mx="auto" />
+              </Box>
+
+                    {/* table here  i imported */}
+                    <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #19072b)" color="white">
+                    <Image src="/images/textlogo.png" alt="App" w="170px" mx="auto" />
+                      <Heading fontSize="2xl" mb={6}>Chainwave Features Comparison</Heading>
+                      <Text maxW="1200px" mx="auto" mb={6}>
+                      </Text>
+                      <Flex  p={4} justify="center" mb={6}>
+              <Table/>
+                      </Flex>
+                    </Box>
+
+
+      {/* App Section2 */}
+      <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #4567c4)" color="white">
+        <Heading p={4}  as="h2" mb={6}>Chainwave Support When you Need it!</Heading>
+        <Text p={4}  maxW="600px" mx="auto" mb={6}>
+        At Chainwave Solutions, we are committed to streamlining fast and
+        efficient transactions for our clients. Our dedicated team prioritizes
+        security to ensure that all your transactional data is handled with the
+        utmost care. We are here to assist you with any transactional data
+        recovery needs and to answer any questions regarding KYC (Know
+        Your Customer) and KYB (Know Your Business) setups.
+                </Text>
+        <Flex gap={5} justify="center" mb={6}>
+            <Image src="/images/app-store.png" alt="App Store" />
+
+            <Image src="/images/play-store.png" alt="Play Store" />
+        </Flex>
+        <Image src="/images/app-img.png" alt="Coming Soon to Digital Platforms" mx="auto" />
+      </Box>
+      {/* App Section2 */}
+      <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #1f3363)" color="white">
+        <Heading as="h1" mb={6}>Chainwave Solutions</Heading>
+        <Text fontSize="xl" mb={6}>"Empowering Financial Freedom with Every Transaction"</Text>
+        <Text mb={6}>
+        </Text>
+        <Flex justify="center" mb={6}>
+        </Flex>
+        <Image src="/images/textlogo.png" alt="App" mx="auto" />
+      </Box>
+
+
+
 
       {/* Modal for Register Interest Form */}
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -216,7 +251,7 @@ const LandingPage = () => {
       {/* Footer */}
       <Footer />
 
-      {/* Other Sections ... */}
+
     </>
   );
 };

@@ -39,39 +39,39 @@ const ComparisonTable = () => {
       <Table variant="simple" size="sm" border="0px solid black" width="100%">
         <Thead>
           <Tr>
-            <Th border="0px solid black" color="white" fontSize={["xs", "sm", "md"]} whiteSpace="normal" wordBreak="break-word">
+            <Th border="0px solid black" fontSize={["xs", "sm", "md"]} whiteSpace="normal" wordBreak="break-word">
               Feature
             </Th>
 
             {/* Compact name and logo alignment */}
             <Th textAlign="center" border="0px solid black" p={1}>
               <Box display="flex" flexDirection="column" alignItems="center">
-                <Image src={stripeLogo} alt="Stripe" height="30px"   mb={1} />
-                <Box fontSize={["xx-small", "xs", "sm"]} lineHeight="1" color="white" textAlign="center">Stripe</Box>
+                <Image src={stripeLogo} alt="Stripe" height="20px"  mb={1} />
+                <Box fontSize={["xx-small", "xs", "sm"]} lineHeight="1" textAlign="center">Stripe</Box>
               </Box>
             </Th>
             <Th textAlign="center" border="0px solid black" p={1}>
               <Box display="flex" flexDirection="column" alignItems="center">
-                <Image src={payoneerLogo} alt="Payoneer" height="30px"   mb={1} />
-                <Box fontSize={["xx-small", "xs", "sm"]} lineHeight="1" color="white" textAlign="center">Payoneer</Box>
+                <Image src={payoneerLogo} alt="Payoneer" height="20px"  mb={1} />
+                <Box fontSize={["xx-small", "xs", "sm"]} lineHeight="1" textAlign="center">Payoneer</Box>
               </Box>
             </Th>
             <Th textAlign="center" border="0px solid black" p={1}>
               <Box display="flex" flexDirection="column" alignItems="center">
-                <Image src={paypalLogo} alt="PayPal" height="30px"   mb={1} />
-                <Box fontSize={["xx-small", "xs", "sm"]} lineHeight="1" color="white" textAlign="center">PayPal</Box>
+                <Image src={paypalLogo} alt="PayPal" height="20px"  mb={1} />
+                <Box fontSize={["xx-small", "xs", "sm"]} lineHeight="1" textAlign="center">PayPal</Box>
               </Box>
             </Th>
             <Th textAlign="center" border="0px solid black" p={1}>
               <Box display="flex" flexDirection="column" alignItems="center">
-                <Image src={coinbaseLogo} alt="Coinbase" height="30px"   mb={1} />
-                <Box fontSize={["xx-small", "xs", "sm"]} lineHeight="1" color="white" textAlign="center">Coinbase</Box>
+                <Image src={coinbaseLogo} alt="Coinbase" height="20px"  mb={1} />
+                <Box fontSize={["xx-small", "xs", "sm"]} lineHeight="1" textAlign="center">Coinbase</Box>
               </Box>
             </Th>
             <Th textAlign="center" border="0px solid black" p={1}>
               <Box display="flex" flexDirection="column" alignItems="center">
-                <Image src={chainwaveLogo} alt="ChainWave" height="30px"   mb={1} />
-                <Box fontSize={["xx-small", "xs", "sm"]} lineHeight="1" color="white" textAlign="center">ChainWave</Box>
+                <Image src={chainwaveLogo} alt="ChainWave" height="20px"  mb={1} />
+                <Box fontSize={["xx-small", "xs", "sm"]} lineHeight="1" textAlign="center">ChainWave</Box>
               </Box>
             </Th>
           </Tr>
