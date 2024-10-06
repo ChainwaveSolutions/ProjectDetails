@@ -45,12 +45,11 @@ const Footer: React.FC = () => {
 
         <Flex p={2} bg="rgba(0, 0, 0, 0.61)" mt="15px" justify="center" align="center" gap={1}>
 
-          <Image p={2} ml="4" src="/images/logoonly.png" alt="Heading" width="170px" />
 
         </Flex>
                 <Flex p={0} bg="rgba(0, 0, 0, 0.61)" mt="1px" justify="center" align="center" gap={1}>
 
-                  <Image p={2} ml="4" src="/images/textonly.png" alt="Heading" width="280px" />
+                  <Image p={2} ml="4" src="/images/textonly.png" alt="Heading" width="170px" />
 
                 </Flex>
 
@@ -82,13 +81,7 @@ const Footer: React.FC = () => {
                 <Text fontSize="xl" mt={2}>&copy;  Chainwave Solutions Incorporated {currentYear} </Text>
 
 
-                        <Link href="https://faucets.chain.link/" isExternal>
-                          <Text color="blue.500"mt="25px" fontSize="sm" mb={2}>Testnet Tokens Faucet Link</Text>
-                        </Link>
 
-                        <Link href="https://faucet.circle.com/" isExternal>
-                          <Text color="blue.500" mt="25px" fontSize="sm" mb={2}>USDC Faucet Link</Text>
-                        </Link>
 
         <Flex mt="800px" justifyContent="center" flexWrap="wrap">
         </Flex>
@@ -100,3 +93,11 @@ const Footer: React.FC = () => {
 };
 
 export default Footer;
+
+// <Link href="https://faucets.chain.link/" isExternal>
+//   <Text color="blue.500"mt="25px" fontSize="sm" mb={2}>Testnet Tokens Faucet Link</Text>
+// </Link>
+//
+// <Link href="https://faucet.circle.com/" isExternal>
+//   <Text color="blue.500" mt="25px" fontSize="sm" mb={2}>USDC Faucet Link</Text>
+// </Link>

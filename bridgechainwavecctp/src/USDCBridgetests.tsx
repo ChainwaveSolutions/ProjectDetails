@@ -295,7 +295,7 @@ const TransferUSDCPage = () => {
 
 
   return (
-    <Box bg="gray.800" minH="100vh" color="white">
+    <Box bg="gray.800"  color="white">
       {/* Header */}
       <Flex p={1} bg="rgba(0, 0, 0, 0.61)" justify="space-between" align="center">
         <Image p={0} ml="4" src="/images/textlogo.png" alt="Heading" width="160px" />
@@ -468,7 +468,7 @@ const TransferUSDCPage = () => {
                                       </Link>
 
                                       <Link href="https://faucet.circle.com/" isExternal>
-                                        <Text color="blue.500" mt="25px" fontSize="sm" mb={2}>USDC Faucet Link</Text>
+                                        <Text color="blue.500"  fontSize="sm" mb={2}>USDC Faucet Link</Text>
                                       </Link>
       </Box>
 

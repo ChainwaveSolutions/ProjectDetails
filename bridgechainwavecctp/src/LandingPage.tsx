@@ -22,6 +22,8 @@ import RegisterInterestForm from './Components/RegisterInterestForm';
 import Table from './table';
 
 
+import USDCBridgetests from './USDCBridgetests';
+import Stripe from './LandingPage2';
 import Header from './Components/Header'; // Dave heres the Import Header component
 
 const phrases = ["BUSINESS", "FINANCIAL", "CONSUMERS", "EVERYONE"];
@@ -116,7 +118,7 @@ const LandingPage = () => {
       {/* App Section */}
       <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #19072b)" color="white">
       <Image src="/images/textlogo.png" alt="App" w="170px" mx="auto" />
-        <Heading fontSize="2xl" mb={6}>Login or Signup here.</Heading>
+        <Heading fontSize="2xl" mb={6}>Login or Register here.</Heading>
         <Text maxW="600px" mx="auto" mb={6}>
         </Text>
         <Flex gap={5} p={4} justify="center" mb={6}>
@@ -125,7 +127,7 @@ const LandingPage = () => {
             Login
           </Button>
           <Button bgGradient="linear(to-r, #b531d4, #4567c4)" color="white" w="170px" size="lg" sx={buttonGlow}>
-              Signup
+              Register
             </Button>
         </Flex>
       </Box>
@@ -217,16 +219,22 @@ Welcome to Chainwave Solutions! We're all about making payments faster and easie
         </Flex>
         <Image src="/images/app-img.png" alt="Coming Soon to Digital Platforms" mx="auto" />
       </Box>
-      {/* App Section2 */}
-      <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #1f3363)" color="white">
-        <Heading as="h1" mb={6}>Chainwave Solutions</Heading>
-        <Text fontSize="xl" mb={6}>"Empowering Financial Freedom with Every Transaction"</Text>
-        <Text mb={6}>
-        </Text>
-        <Flex justify="center" mb={6}>
-        </Flex>
-        <Image src="/images/textlogo.png" alt="App" mx="auto" />
+
+
+
+      <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #19072b)" color="white">
+      <Box mx="auto" maxW="680px" >
+
+<Stripe/>
       </Box>
+    </Box>
+
+         <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #19072b)" color="white">
+          <Box mx="auto" maxW="680px" >
+
+            <USDCBridgetests/>
+          </Box>
+        </Box>
 
 
 
@@ -249,6 +257,15 @@ Welcome to Chainwave Solutions! We're all about making payments faster and easie
       </Modal>
 
       {/* Footer */}
+      <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #1f3363)" color="white">
+        <Heading as="h1" mb={6}>Chainwave Solutions</Heading>
+        <Text fontSize="xl" mb={6}>"Empowering Financial Freedom with Every Transaction"</Text>
+        <Text mb={6}>
+        </Text>
+        <Flex justify="center" mb={6}>
+        </Flex>
+        <Image p={6} src="/images/textlogo.png" alt="App" mx="auto" />
+      </Box>
       <Footer />
 
 

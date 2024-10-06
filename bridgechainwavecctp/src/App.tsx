@@ -4,11 +4,14 @@ import './styles.css';
 
 import Intro from './Intro';
 import LandingPage from './LandingPage';
+import Stripe from './LandingPage2';
 import USDCBridgetests from './USDCBridgetests';
 // import USDCSend from './USDCSend';
 // import UserCreate from './UserCreate';
 import Table from './table';
-import Section1 from './Section1';
+// import Section1 from './Section1';
+
+    // <Route path="/section1" element={<Section1 />} />
 
 
 
@@ -139,7 +142,7 @@ const modal = createWeb3Modal({
           <Route path="/landing" element={<LandingPage />} />
             <Route path="/usdctestbridge" element={<USDCBridgetests />} />
                 <Route path="/table" element={<Table />} />
-                    <Route path="/section1" element={<Section1 />} />
+                    <Route path="/stripe" element={<Stripe />} />
       </Routes>
     </Router>
   );
