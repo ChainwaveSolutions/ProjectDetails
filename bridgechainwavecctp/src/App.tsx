@@ -9,9 +9,8 @@ import USDCBridgetests from './USDCBridgetests';
 // import USDCSend from './USDCSend';
 // import UserCreate from './UserCreate';
 import Table from './table';
-// import Section1 from './Section1';
+import Section1 from './Section1';
 
-    // <Route path="/section1" element={<Section1 />} />
 
 
 
@@ -143,6 +142,8 @@ const modal = createWeb3Modal({
             <Route path="/usdctestbridge" element={<USDCBridgetests />} />
                 <Route path="/table" element={<Table />} />
                     <Route path="/stripe" element={<Stripe />} />
+                    <Route path="/section1" element={<Section1 />} />
+
       </Routes>
     </Router>
   );
