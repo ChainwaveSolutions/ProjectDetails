@@ -34,19 +34,24 @@ const RotatingText = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % phrases.length);
-    }, 2000);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
+
+
+
+  // find text color gradient for this same as button  grsdient
 
   return (
     <motion.div
       key={index}
-      initial={{ opacity: 0, y: -20 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 1.5 }}
     >
-      <Text as="span" color="blue.300">{phrases[index]}</Text>
+
+      <Text as="span"  color="#4567c4">{phrases[index]}</Text>
     </motion.div>
   );
 };
@@ -55,9 +60,9 @@ const LandingPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const buttonGlow = {
-    boxShadow: '0 0 15px rgba(128, 0, 255, 0.5)',
+    boxShadow: '0 0 15px rgba(255, 0, 248, 0.5)',
     _hover: {
-      boxShadow: '0 0 50px rgba(128, 0, 255, 0.8)',
+      boxShadow: '0 0 50px rgba(255, 0, 248, 0.8)',
     },
   };
 
@@ -71,7 +76,7 @@ const LandingPage = () => {
         bg="gray.800"
         color="white"
         py={20}
-        backgroundImage="url('/images/header-background.jpg')"
+        backgroundImage="url('')"
         backgroundSize="cover"
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
@@ -93,7 +98,7 @@ const LandingPage = () => {
             </Text>
             <Flex gap={4}>
               <Button
-                colorScheme="blue"
+                bgGradient="linear(to-r, #b531d4, #4567c4)" color="white"
                 w="170px"
                 size="lg"
                 onClick={onOpen}
@@ -102,7 +107,7 @@ const LandingPage = () => {
                 Register Interest
               </Button>
               <Link href="#details">
-                <Button colorScheme="blue" w="170px" size="lg" sx={buttonGlow}>
+                <Button bgGradient="linear(to-r, #4567c4, #b531d4)" color="white" w="170px" size="lg" sx={buttonGlow}>
                   Learn More
                 </Button>
               </Link>

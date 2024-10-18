@@ -56,7 +56,7 @@ const Header = () => {
               </Button>
             </>
           ) : (
-            <Button colorScheme="blue" onClick={handleGoogleLogin}>
+            <Button bgGradient="linear(to-r, #4567c4, #b531d4)" color="white" onClick={handleGoogleLogin}>
               Login
             </Button>
           )}
