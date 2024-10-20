@@ -76,10 +76,7 @@ const LandingPage = () => {
         bg="gray.800"
         color="white"
         py={20}
-        backgroundImage="url('')"
-        backgroundSize="cover"
-        backgroundPosition="center"
-        backgroundRepeat="no-repeat"
+        backgroundImage="url('/images/b1.gif')"
       >
         <Flex
           justifyContent="center"
@@ -183,7 +180,14 @@ Welcome to Chainwave Solutions! We're all about making payments faster and easie
             </Box>
 
             {/* App Section */}
-              <Box py={12} textAlign="center" bgGradient="linear(to-r, #b531d4, #4567c4)" color="white">
+              <Box py={12} textAlign="center"
+                color="white"
+
+                backgroundImage="url('/images/p9.gif')"
+                backgroundSize="cover"
+                backgroundPosition="center"
+                backgroundRepeat="no-repeat"
+                >
                 <Heading p={4}  as="h2" mb={6}>Our Powerful App to Connect It All</Heading>
                 <Text p={4}  maxW="600px" mx="auto" mb={6}>
           Chainwave Solutions offers an application that leverages advanced blockchain technology to streamline simple transactions. This application ensures that transactions are secure, transparent, and immutable, making them tamper-proof and permanently recorded.          </Text>
