@@ -42,8 +42,9 @@ const Header = () => {
   }, []);
 
   return (
-    <Box bg="rgba(0, 0, 0, 0)" color="white" p={0}>
-      <Flex justify="space-between" align="center" backgroundImage="url('/images/header-background.jpg')">
+    <>
+    <Box bg="#440055" color="white" p={0}>
+      <Flex justify="space-between" align="center" >
         <Link href="/">
           <Image p={0} ml="4" src="/images/textlogo.png" alt="Logo" width="220px" />
         </Link>
@@ -56,13 +57,31 @@ const Header = () => {
               </Button>
             </>
           ) : (
-            <Button bgGradient="linear(to-r, #4567c4, #b531d4)" color="white" onClick={handleGoogleLogin}>
+            <Button
+              bgGradient="linear(to-b, #AA00D4, #8800AA)"
+              boxShadow="0px 4px 12px rgba(0, 0, 0, 0.5)"
+              onClick={handleGoogleLogin}
+              color="white"
+
+              size="sm"
+              _hover={{
+                transform: 'scale(1.05)', // Grows the button slightly on hover
+                boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.7)', // Adds a shadow on hover
+              }}
+              transition="transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out" // Smooth transition
+            >
+
               Login
             </Button>
           )}
         </Flex>
       </Flex>
     </Box>
+    <Box mb="4px" bg="#ffffff" color="white" p={0}>
+
+  </Box>
+  </>
+
   );
 };
 

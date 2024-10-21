@@ -51,7 +51,7 @@ const RotatingText = () => {
       transition={{ duration: 1.5 }}
     >
 
-      <Text as="span"  color="#4567c4">{phrases[index]}</Text>
+      <Text as="span"  color="#0ABAB5">{phrases[index]}</Text>
     </motion.div>
   );
 };
@@ -69,15 +69,27 @@ const LandingPage = () => {
   return (
     <>
       {/* Header imoprted now and seperated to ensure uniformity on page dave check components folder for the file */}
-      <Header />
+      <Box
+    id="header"
+    bg="gray.800"
+    color="white"
+    // Adjusted padding for a smaller header when sticky
+    bgGradient="linear(to-r, #19072b, #b531d4)"
+    position="sticky"
+    top="0"
+    zIndex="1000" // Ensures it stays above other content
+  >
+    <Header />
+  </Box>
+
 
       <Box
         id="header"
         bg="gray.800"
         color="white"
         py={20}
-        backgroundImage="url('/images/b1.gif')"
-      >
+bgGradient="linear(to-r, #19072b, #b531d4)"
+    >
         <Flex
           justifyContent="center"
           alignItems="center"
@@ -85,7 +97,7 @@ const LandingPage = () => {
           maxW="1200px"
           mx="auto"
         >
-          <Box p={8} flex="1">
+          <Box align="center" p={8} flex="1">
             <Heading as="h1" size="2xl" mb={6}>
               PAYMENT SOLUTIONS FOR <br />
               <RotatingText />
@@ -93,21 +105,36 @@ const LandingPage = () => {
             <Text fontSize="xl" mb={8}>
               ChainWave Solutions offers a seamless, secure, and cost-effective way to engage with digital currencies.
             </Text>
-            <Flex gap={4}>
-              <Button
-                bgGradient="linear(to-r, #b531d4, #4567c4)" color="white"
-                w="170px"
-                size="lg"
-                onClick={onOpen}
-                sx={buttonGlow}
-              >
-                Register Interest
+            <Flex gap={5} p={4} justify="center" mb={6}>
+
+            <Button
+              bgGradient="linear(to-b, #AA00D4, #8800AA)"
+              boxShadow="0px 4px 12px rgba(0, 0, 0, 0.5)"
+              onClick={onOpen}
+              color="white"
+              w="170px"
+              size="md"
+              _hover={{
+                transform: 'scale(1.05)', // Grows the button slightly on hover
+                boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.7)', // Adds a shadow on hover
+              }}
+              transition="transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out" // Smooth transition
+            >            Login
               </Button>
-              <Link href="#details">
-                <Button bgGradient="linear(to-r, #4567c4, #b531d4)" color="white" w="170px" size="lg" sx={buttonGlow}>
-                  Learn More
+              <Button
+                bgGradient="linear(to-b, #AA00D4, #8800AA)"
+                boxShadow="0px 4px 12px rgba(0, 0, 0, 0.5)"
+                onClick={onOpen}
+                color="white"
+                w="170px"
+                size="md"
+                _hover={{
+                  transform: 'scale(1.05)', // Grows the button slightly on hover
+                  boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.7)', // Adds a shadow on hover
+                }}
+                transition="transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out" // Smooth transition
+              >              Register
                 </Button>
-              </Link>
             </Flex>
           </Box>
           <Box flex="1" display="flex" justifyContent="center">
@@ -116,49 +143,36 @@ const LandingPage = () => {
         </Flex>
       </Box>
 
-
-      {/* App Section */}
-      <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #19072b)" color="white">
-      <Image src="/images/textlogo.png" alt="App" w="170px" mx="auto" />
-        <Heading fontSize="2xl" mb={6}>Login or Register here.</Heading>
-        <Text maxW="600px" mx="auto" mb={6}>
-        </Text>
-        <Flex gap={5} p={4} justify="center" mb={6}>
-
-          <Button bgGradient="linear(to-r, #b531d4, #4567c4)" color="white" w="170px" size="lg" sx={buttonGlow}>
-            Login
-          </Button>
-          <Button bgGradient="linear(to-r, #b531d4, #4567c4)" color="white" w="170px" size="lg" sx={buttonGlow}>
-              Register
-            </Button>
-        </Flex>
-      </Box>
-
-
-      {/* App Section */}
       <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #b531d4)" color="white">
-        <Heading as="h2" mb={6}>About Chainwave</Heading>
-        <Text p={4} maxW="600px" mx="auto" mb={6}>
-Welcome to Chainwave Solutions! We're all about making payments faster and easier, whether you're using traditional currency or crypto. Our goal is to bring you the best of both worlds, with quick, secure, and seamless transactions that fit your needs. At Chainwave, we’re driven by innovation and a commitment to keep things simple, efficient, and always customer-focused.
-        </Text>
-        <Flex justify="center" mb={6}>
-        </Flex>
-        <Image src="/images/logoonly.png" alt="App" mx="auto" />
-      </Box>
-
+        <Box
+          maxW="800px"
+          mx="auto"
+          p={6}
+          borderRadius="3xl"
+          bg="rgba(0, 0, 0, 0.3)"
+          backdropFilter="blur(5px)"
+        >
+          <Heading as="h2" mb={6}>About Chainwave</Heading>
+          <Text p={4} maxW="600px" mx="auto" mb={6}>
+            Welcome to Chainwave Solutions! We're all about making payments faster and easier, whether you're using traditional currency or crypto. Our goal is to bring you the best of both worlds, with quick, secure, and seamless transactions that fit your needs. At Chainwave, we’re driven by innovation and a commitment to keep things simple, efficient, and always customer-focused.
+          </Text>
+          <Flex justify="center" mb={6}>
+          </Flex>
+          <Image src="/images/logoonly.png" alt="App" mx="auto" />
+        </Box>
+        </Box>
             {/* How It Works Section */}
-            <Box py={12} bg="#19072b" textAlign="center"  mx="auto">
+            <Box py={12} bgGradient="linear(to-r, #19072b, #b531d4)" textAlign="center"  mx="auto">
               <Heading color="#f6f5f7" as="h2" mb={6}>How It Works?</Heading>
               <Flex justify="center" flexWrap="wrap">
-              <Box bg="#f6f5f7" p={6} m={4} maxW="325px" textAlign="center">
+              <Box bg="rgba(0, 0, 0, 0.3)" borderRadius="3xl" backdropFilter="blur(5px)" p={6} m={4} maxW="325px" color="white" textAlign="center">
               <Box mb={4} display="flex" justifyContent="center">
                 <Image src="/images/svg/trader.svg" alt="Exchanges" boxSize="75px" />
               </Box>
               <Heading as="h5" size="sm" mb={4}>Exchanges</Heading>
               <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
             </Box>
-
-                <Box bg="#f6f5f7" p={6} m={4} maxW="325px" textAlign="center">
+                <Box bg="rgba(0, 0, 0, 0.3)" borderRadius="3xl" backdropFilter="blur(5px)" p={6} m={4} maxW="325px" color="white" textAlign="center">
                 <Box mb={4} display="flex" justifyContent="center">
                   <Image src="/images/svg/exchanges.svg" alt="Exchanges" boxSize="75px" />
                 </Box>
@@ -166,7 +180,7 @@ Welcome to Chainwave Solutions! We're all about making payments faster and easie
                 <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
               </Box>
 
-              <Box bg="#f6f5f7" p={6} m={4} maxW="325px" textAlign="center">
+              <Box bg="rgba(0, 0, 0, 0.3)" borderRadius="3xl" backdropFilter="blur(5px)" p={6} m={4} maxW="325px" color="white" textAlign="center">
               <Box mb={4} display="flex" justifyContent="center">
                 <Image src="/images/svg/mining.svg" alt="Exchanges" boxSize="75px" />
               </Box>
@@ -174,16 +188,27 @@ Welcome to Chainwave Solutions! We're all about making payments faster and easie
               <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
             </Box>
               </Flex>
-              <Button mt={6} bg="#171717" color="white" _hover={{ bg: '#b531d4' }}>
-                Read More
+              <Button
+                bgGradient="linear(to-b, #AA00D4, #8800AA)"
+                boxShadow="0px 4px 12px rgba(0, 0, 0, 0.5)"
+                onClick={onOpen}
+                color="white"
+                w="170px"
+                size="md"
+                mt={6}
+                _hover={{
+                  transform: 'scale(1.05)', // Grows the button slightly on hover
+                  boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.7)', // Adds a shadow on hover
+                }}
+                transition="transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out" // Smooth transition
+              >                Read More
               </Button>
             </Box>
 
             {/* App Section */}
               <Box py={12} textAlign="center"
                 color="white"
-
-                backgroundImage="url('/images/p9.gif')"
+bgGradient="linear(to-r, #19072b, #b531d4)"
                 backgroundSize="cover"
                 backgroundPosition="center"
                 backgroundRepeat="no-repeat"
@@ -199,19 +224,27 @@ Welcome to Chainwave Solutions! We're all about making payments faster and easie
               </Box>
 
                     {/* table here  i imported */}
-                    <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #19072b)" color="white">
-                    <Image src="/images/textlogo.png" alt="App" w="170px" mx="auto" />
-                      <Heading fontSize="2xl" mb={6}>Chainwave Features Comparison</Heading>
-                      <Text maxW="1200px" mx="auto" mb={6}>
-                      </Text>
-                      <Flex  p={4} justify="center" mb={6}>
-              <Table/>
-                      </Flex>
-                    </Box>
+
+
+
+                    <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #b531d4)" color="white">
+  <Box
+    maxW="800px"
+    mx="auto"
+    p={6}
+    borderRadius="3xl"
+    bg="rgba(0, 0, 0, 0.5)"
+    backdropFilter="blur(5px)"
+  >
+  <Table/>
+
+  </Box>
+    </Box>
+
 
 
       {/* App Section2 */}
-      <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #4567c4)" color="white">
+      <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #b531d4)" color="white">
         <Heading p={4}  as="h2" mb={6}>Chainwave Support When you Need it!</Heading>
         <Text p={4}  maxW="600px" mx="auto" mb={6}>
         At Chainwave Solutions, we are committed to streamlining fast and
@@ -229,21 +262,6 @@ Welcome to Chainwave Solutions! We're all about making payments faster and easie
         <Image src="/images/app-img.png" alt="Coming Soon to Digital Platforms" mx="auto" />
       </Box>
 
-
-
-      <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #19072b)" color="white">
-      <Box mx="auto" maxW="680px" >
-
-<Stripe/>
-      </Box>
-    </Box>
-
-         <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #19072b)" color="white">
-          <Box mx="auto" maxW="680px" >
-
-            <USDCBridgetests/>
-          </Box>
-        </Box>
 
 
 
@@ -266,15 +284,66 @@ Welcome to Chainwave Solutions! We're all about making payments faster and easie
       </Modal>
 
       {/* Footer */}
-      <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #1f3363)" color="white">
-        <Heading as="h1" mb={6}>Chainwave Solutions</Heading>
-        <Text fontSize="xl" mb={6}>"Empowering Financial Freedom with Every Transaction"</Text>
-        <Text mb={6}>
-        </Text>
-        <Flex justify="center" mb={6}>
-        </Flex>
-        <Image p={6} src="/images/textlogo.png" alt="App" mx="auto" />
-      </Box>
+
+            {/* Footer */}
+            <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #b531d4)" color="white">
+              <Heading as="h1" mb={6}>Chainwave Solutions</Heading>
+              <Text fontSize="xl" mb={6}>"Empowering Financial Freedom with Every Transaction"</Text>
+              <Text mb={6}>
+              </Text>
+              <Flex justify="center" mb={6}>
+              </Flex>
+            </Box>
+
+
+            {/* App Section */}
+
+            <Box  py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #b531d4)" color="white">
+            <Box
+              maxW="800px"
+              mx="auto"
+              p={6}
+              borderRadius="3xl"
+              bg="rgba(0, 0, 0, 0.3)"
+              backdropFilter="blur(5px)"
+            >
+              <Heading fontSize="2xl" mb={6}>Login or Register here.</Heading>
+              <Text maxW="600px" mx="auto" mb={6}>
+              </Text>
+              <Flex gap={5} p={4} justify="center" mb={6}>
+
+              <Button
+                bgGradient="linear(to-b, #AA00D4, #8800AA)"
+                boxShadow="0px 4px 12px rgba(0, 0, 0, 0.5)"
+                onClick={onOpen}
+                color="white"
+                w="170px"
+                size="lg"
+                _hover={{
+                  transform: 'scale(1.05)', // Grows the button slightly on hover
+                  boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.7)', // Adds a shadow on hover
+                }}
+                transition="transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out" // Smooth transition
+              >            Login
+                </Button>
+                <Button
+                  bgGradient="linear(to-b, #AA00D4, #8800AA)"
+                  boxShadow="0px 4px 12px rgba(0, 0, 0, 0.5)"
+                  onClick={onOpen}
+                  color="white"
+                  w="170px"
+                  size="lg"
+                  _hover={{
+                    transform: 'scale(1.05)', // Grows the button slightly on hover
+                    boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.7)', // Adds a shadow on hover
+                  }}
+                  transition="transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out" // Smooth transition
+                >              Register
+                  </Button>
+              </Flex>
+            </Box>
+          </Box>
+
       <Footer />
 
 
@@ -283,3 +352,22 @@ Welcome to Chainwave Solutions! We're all about making payments faster and easie
 };
 
 export default LandingPage;
+
+
+
+ //
+ //      <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #19072b)" color="white">
+ //      <Box mx="auto" maxW="680px" >
+ //
+ //            {/* Modal for Register Interest Form    <Stripe/>
+ // */}
+ //      </Box>
+ //    </Box>
+ //
+ //         <Box py={12} textAlign="center" bgGradient="linear(to-r, #19072b, #19072b)" color="white">
+ //          <Box mx="auto" maxW="680px" >
+ //
+ //                {/* Modal for Register Interest Form               <USDCBridgetests/>
+ // */}
+ //          </Box>
+ //        </Box>
